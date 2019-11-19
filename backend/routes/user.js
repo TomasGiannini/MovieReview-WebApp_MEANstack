@@ -1,61 +1,66 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const express = require("express");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const User = require("../models/user");
+
 const router = express.Router();
 
-// hash password and save user to database
-router.post('/signup', (req, res, next) => {
-  // hash the password, 10 refers to salting rounds
-  bcrypt.hash(req.body.password, 10)
-    .then(hash => {
-      const user = new User({
-        email: req.body.email,
-        password: hash
-      });
-      user.save()
-        .then(result => {
-          res.status(201).json({
-            message: 'user created',
-            result: result
-          });
-        })
-        .catch(err => {
-          res.status(500).json({
-            error: err
-          });
-        });
+router.post("/signup", (req, res, next) => {
+  bcrypt.hash(req.body.password, 10).then(hash => {
+    const user = new User({
+      email: req.body.email,
+      password: hash
     });
+    user
+      .save()
+      .then(result => {
+        res.status(201).json({
+          message: "User created!",
+          result: result
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
+  });
 });
 
-router.post('/login', (req, res, next) => {
+router.post("/login", (req, res, next) => {
+  let fetchedUser;
   User.findOne({ email: req.body.email })
     .then(user => {
-      if(!user) {
+      if (!user) {
         return res.status(401).json({
-          message: 'auth failed'
+          message: "Auth failed"
         });
       }
-      return bcrypt.compare(res.body.password, user.password);
+      fetchedUser = user;
+      return bcrypt.compare(req.body.password, user.password);
     })
     .then(result => {
       if (!result) {
         return res.status(401).json({
-          message: 'auth failed'
+          message: "Auth failed"
         });
       }
-      //creating json web token for a specific user and setting parameters of it
-      const token = jwt.sign({ email: user.email, userId: user._id },
-        'secret_this_should_be_longer', {
-        expiresIn: '1h'
+      const token = jwt.sign(
+        { email: fetchedUser.email, userId: fetchedUser._id },
+        "secret_this_should_be_longer",
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({
+        token: token,
+        expiresIn: 3600
       });
     })
     .catch(err => {
       return res.status(401).json({
-        message: 'auth failed'
-    })
+        message: "Auth failed"
+      });
+    });
 });
-
-
 
 module.exports = router;
