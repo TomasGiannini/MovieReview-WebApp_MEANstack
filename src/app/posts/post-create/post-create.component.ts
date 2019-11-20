@@ -39,7 +39,11 @@ export class PostCreateComponent implements OnInit {
         this.isLoading = true;
         this.postsService.getPost(this.postId).subscribe(postData => {
           this.isLoading = false;
-          this.post = {id: postData._id, title: postData.title, content: postData.content, creator: postData.creator };
+          this.post = {
+            id: postData._id,
+            title: postData.title,
+            content: postData.content,
+            creator: postData.creator};
         });
       } else {
         this.mode = 'create';
@@ -54,7 +58,15 @@ export class PostCreateComponent implements OnInit {
       return;
     }
     if (this.mode === 'create') {
-      this.postsService.addPost(form.value.title, form.value.content);
+      this.postsService.addPost(form.value.title,
+        form.value.content,
+        form.value.album,
+        form.value.year,
+        form.value.genre,
+        form.value.comment,
+        form.value.track,
+        form.value.zeroByte,
+        form.value.header);
     } else {
       this.postsService.updatePost(this.postId, form.value.title, form.value.content);
     }

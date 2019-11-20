@@ -53,8 +53,8 @@ export class PostsService {
     }>('http://localhost:3000/api/posts/' + id);
   }
 
-  addPost(title: string, content: string) {
-    const post: Post = { id: null, title: title, content: content, creator:null};
+  addPost(title: string, content: string, album: string, year: number, genre: string, comment: string, track: number, zeroByte: number, header: string) {
+    const post: Post = { id: null, title: title, content: content, creator:null, album: album, year: year, genre: genre, comment: comment, track: track, zeroByte: zeroByte, header: header};
     this.http
       .post<{ message: string, postId: string }>('http://localhost:3000/api/posts', post)
       .subscribe(responseData => {

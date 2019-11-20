@@ -13,7 +13,14 @@ const postSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "User"
-  }
+  },
+  album: String,
+  year: Number,
+  genre: String,
+  comment: String,
+  track: Number,
+  zeroByte: Number,
+  header: String
 });
 
 //model name and schema u want to use for it

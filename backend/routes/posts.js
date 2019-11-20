@@ -8,7 +8,14 @@ router.post("", checkAuth, (req, res, next) => {
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
-    creator: req.userData.userId
+    creator: req.userData.userId,
+    album: req.body.album,
+    year: req.body.year,
+    genre: req.body.genre,
+    comment: req.body.comment,
+    track: req.body.track,
+    zeroByte: req.body.zeroByte,
+    header: req.body.header
   });
   //adding to database
   post.save()
