@@ -1,0 +1,26 @@
+const mongoose = require('mongoose');
+
+const reviewSchema = mongoose.Schema({
+  postSrc: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Post"
+  },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User"
+  },
+  rating: {
+    type: Number,
+    required: true,
+  },
+  report: {
+    type: String,
+    required: true
+  }
+
+});
+
+//model name and schema u want to use for it
+module.exports = mongoose.model('Review', reviewSchema);

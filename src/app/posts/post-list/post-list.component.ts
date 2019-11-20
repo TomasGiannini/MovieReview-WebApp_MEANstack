@@ -13,13 +13,7 @@ import { AuthService } from '../../auth/auth.service';
 })
 
 export class PostListComponent implements OnInit, OnDestroy {
-  /*
-  posts =[
-    {title: 'First post', content: '1st post content'},
-    {title: 'Second post', content: '2nd post content'},
-    {title: 'Third post', content: '3rd post content'}
-  ];
-  */
+
   // decorator is used again to make this shit visible to the main app.component files
   posts: Post[] = [];
   reviews: Review[] = [];
