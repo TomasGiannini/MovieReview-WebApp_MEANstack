@@ -5,19 +5,26 @@
     </mat-expansion-panel-header>
     <p>{{ post.content }}
       <br>
-      album
+      {{ post.album }}
       <br>
-      year
+      {{ post.year }}
       <br>
-      genre
+      {{ post.genre }}
       <br>
-      track #
+      {{ post.comment }}
       <br>
-      comment
+      {{ post.track }}
       <br>
-      zeroByte
+      {{ post.zeroByte }}
       <br>
-      header tags
+      {{ post.header }}
+    </p>
+    <p>
+      Most recent review:
+    </p>
+    <hr>
+    <p>
+      REVIEWS:
     </p>
     <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
       <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>

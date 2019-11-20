@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from 'rxjs';
 
 import { Post } from '../post.model';
+import { Review } from '../review.model';
 import { PostsService } from '../posts.service';
 import { AuthService } from '../../auth/auth.service';
 
@@ -21,6 +22,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   */
   // decorator is used again to make this shit visible to the main app.component files
   posts: Post[] = [];
+  reviews: Review[] = [];
   private postsSub: Subscription;
   private authStatusSub: Subscription;
   userIsAuthenticated = false;

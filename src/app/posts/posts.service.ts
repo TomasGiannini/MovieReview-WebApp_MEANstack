@@ -29,7 +29,14 @@ export class PostsService {
             title: post.title,
             content: post.content,
             id: post._id,
-            creator: post.creator
+            creator: post.creator,
+            album: post.album,
+            year: post.year,
+            genre: post.genre,
+            comment: post.comment,
+            track: post.track,
+            zeroByte: post.zeroByte,
+            header: post.header
           };
         });
       })))
@@ -49,12 +56,30 @@ export class PostsService {
       _id: string,
       title: string,
       content: string,
-      creator: string
+      creator: string,
+      album: string,
+      year: number,
+      genre: string,
+      comment: string,
+      track: number,
+      zeroByte: number,
+      header: string
     }>('http://localhost:3000/api/posts/' + id);
   }
 
   addPost(title: string, content: string, album: string, year: number, genre: string, comment: string, track: number, zeroByte: number, header: string) {
-    const post: Post = { id: null, title: title, content: content, creator:null, album: album, year: year, genre: genre, comment: comment, track: track, zeroByte: zeroByte, header: header};
+    const post: Post = {
+      id: null,
+      title: title,
+      content: content,
+      creator: null,
+      album: album,
+      year: year,
+      genre: genre,
+      comment: comment,
+      track: track,
+      zeroByte: zeroByte,
+      header: header };
     this.http
       .post<{ message: string, postId: string }>('http://localhost:3000/api/posts', post)
       .subscribe(responseData => {

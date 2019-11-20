@@ -43,7 +43,14 @@ export class PostCreateComponent implements OnInit {
             id: postData._id,
             title: postData.title,
             content: postData.content,
-            creator: postData.creator};
+            creator: postData.creator,
+            album: postData.album,
+            year: postData.year,
+            genre: postData.genre,
+            comment: postData.comment,
+            track: postData.track,
+            zeroByte: postData.zeroByte,
+            header: postData.header};
         });
       } else {
         this.mode = 'create';
@@ -58,7 +65,8 @@ export class PostCreateComponent implements OnInit {
       return;
     }
     if (this.mode === 'create') {
-      this.postsService.addPost(form.value.title,
+      this.postsService.addPost(
+        form.value.title,
         form.value.content,
         form.value.album,
         form.value.year,
