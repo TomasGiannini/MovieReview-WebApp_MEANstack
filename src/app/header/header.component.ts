@@ -27,6 +27,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
   }
 
+  // clear the token and inform all interested parties about the change
+  onLogout() {
+    this.authService.logout();
+  }
+
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
   }
