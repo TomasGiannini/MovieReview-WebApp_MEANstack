@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
   // used to make sure the edit/delete buttons show properly when ur logged in
   private isAuthenticated = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getToken() {
     return this.token;
@@ -47,6 +48,8 @@ export class AuthService {
           this.isAuthenticated = true;
           // inform everyone subscribed to this variable tht the current user is authenticated
           this.authStatusListener.next(true);
+          // navigate back to homepage when logged in
+          this.router.navigate(['/']);
         }
       });
   }
@@ -57,5 +60,7 @@ export class AuthService {
     this.isAuthenticated = false;
     // sends a signal to the parties subscribed
     this.authStatusListener.next(false);
+    // navigate back to homepage when logged out
+    this.router.navigate(['/']);
   }
 }
