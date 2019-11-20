@@ -24,6 +24,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   private postsSub: Subscription;
   private authStatusSub: Subscription;
   userIsAuthenticated = false;
+  userId: string;
 
   // angular calls and gives u the parameters for this constrcutor auto
   // public keyword auto creates new property called postsService of type class PostsService
@@ -33,6 +34,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   // do basic initialization tasks
   ngOnInit() {
     this.postsService.getPosts();
+    this.userId = this.authService.getUserId();
     // listening for the subject in postsService for everytime new posts are pushed to list
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((posts: Post[]) => {
@@ -44,6 +46,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.authStatusSub = this.authService.getAuthStatusListener()
         .subscribe(isAuthenticated => {
           this.userIsAuthenticated = isAuthenticated;
+          this.userId = this.authService.getUserId();
         });
   }
 
