@@ -48,6 +48,7 @@ export class AuthService {
           this.isAuthenticated = true;
           // inform everyone subscribed to this variable tht the current user is authenticated
           this.authStatusListener.next(true);
+          this.saveAuthData(token);
           // navigate back to homepage when logged in
           this.router.navigate(['/']);
         }
@@ -60,7 +61,31 @@ export class AuthService {
     this.isAuthenticated = false;
     // sends a signal to the parties subscribed
     this.authStatusListener.next(false);
+    this.clearAuthData();
     // navigate back to homepage when logged out
     this.router.navigate(['/']);
+  }
+
+  private getAuthData() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return ;
+    }
+    return {
+      token: token
+    }
+  }
+
+  autoAuthUser() {
+    const authInformation = this.getAuthData();
+  }
+
+  // used to store token in browser local storage so u wont be logged out when reloading page
+  private saveAuthData(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  private clearAuthData() {
+    localStorage.removeItem('token');
   }
 }
