@@ -84,6 +84,16 @@
                         <mat-error *ngIf="">Enter zero byte field</mat-error>
                     </mat-form-field>
 
+                    <mat-form-field>
+                        <textarea
+                          matInput
+                          name="header"
+                          [ngModel]="post?.header"
+                          placeholder="Header Tags"
+                          #header="ngModel"></textarea>
+                          <mat-error *ngIf="">Enter Header Tags</mat-error>
+                      </mat-form-field>
+
         <button
           mat-raised-button
           type="submit">Save Post</button>
