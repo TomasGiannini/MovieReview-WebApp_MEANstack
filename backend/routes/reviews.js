@@ -4,7 +4,7 @@ const checkAuth = require('../middleware/check-auth');
 const router = express.Router();
 
 
-router.post("", checkAuth, (req, res, next) => {
+router.post("", (req, res, next) => {
   const review = new Review({
     postSrc: 'song',
     creator: 'creator',

@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 
 const reviewSchema = mongoose.Schema({
   postSrc: {
-    type: mongoose.Schema.Types.ObjectId,
+    //type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
     ref: "Post"
   },
   creator: {
-    type: mongoose.Schema.Types.ObjectId,
+    //type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
     ref: "User"
   },
