@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -7,6 +9,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
+
+  // allows this class to subscribe to shit
+  private authListenerSubs: Subscription
+
+  userIsAuthenticated = false;
+
+  // declaring use of authService class
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    // setting the subscription component of this class to subscribe to the observable in the other class
+    this.authListenerSubs = this.authService.getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
+  }
+
+  ngOnDestroy() {
+    this.authListenerSubs.unsubscribe();
+  }
 
 }

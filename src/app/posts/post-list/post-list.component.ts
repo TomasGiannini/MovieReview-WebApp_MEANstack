@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-post-list',
@@ -21,10 +22,12 @@ export class PostListComponent implements OnInit, OnDestroy {
   // decorator is used again to make this shit visible to the main app.component files
   posts: Post[] = [];
   private postsSub: Subscription;
+  private authStatusSub: Subscription;
+  userIsAuthenticated = false;
 
   // angular calls and gives u the parameters for this constrcutor auto
   // public keyword auto creates new property called postsService of type class PostsService
-  constructor(public postsService: PostsService) {}
+  constructor(public postsService: PostsService, private authService: AuthService) {}
 
   // function auto executed when this component is created
   // do basic initialization tasks
@@ -35,6 +38,13 @@ export class PostListComponent implements OnInit, OnDestroy {
       .subscribe((posts: Post[]) => {
         this.posts = posts;
       });
+      // check auth status right away for edit/delete buttons
+      this.userIsAuthenticated = this.authService.getIsAuth();
+      // make this components subscription service subscribe to the observable in authService
+      this.authStatusSub = this.authService.getAuthStatusListener()
+        .subscribe(isAuthenticated => {
+          this.userIsAuthenticated = isAuthenticated;
+        });
   }
 
   onDelete(postId: string) {
@@ -43,5 +53,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.postsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 }
