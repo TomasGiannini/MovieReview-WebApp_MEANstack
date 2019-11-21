@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { Review } from '../../reviews/review.model';
 import { PostsService } from '../posts.service';
+import { ReviewsService } from '../../reviews/reviews.service';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
@@ -18,13 +19,14 @@ export class PostListComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   reviews: Review[] = [];
   private postsSub: Subscription;
+  public reviewsSub: Subscription;
   private authStatusSub: Subscription;
   userIsAuthenticated = false;
   userId: string;
 
   // angular calls and gives u the parameters for this constrcutor auto
   // public keyword auto creates new property called postsService of type class PostsService
-  constructor(public postsService: PostsService, private authService: AuthService) {}
+  constructor(public postsService: PostsService, private authService: AuthService, public reviewsService: ReviewsService) {}
 
   // function auto executed when this component is created
   // do basic initialization tasks
@@ -44,6 +46,14 @@ export class PostListComponent implements OnInit, OnDestroy {
           this.userIsAuthenticated = isAuthenticated;
           this.userId = this.authService.getUserId();
         });
+
+        // obtain all reviews
+        this.reviewsSub = this.reviewsService.getReviewUpdateListener()
+        .subscribe((reviews: Review[]) => {
+
+          this.reviews = reviews;
+        });
+
   }
 
   onDelete(postId: string) {

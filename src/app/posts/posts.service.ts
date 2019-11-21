@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Post } from './post.model';
+import { Review } from '../reviews/review.model'
 import { map } from 'rxjs/operators';
 import { PortalHostDirective } from '@angular/cdk/portal';
 import { Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 @Injectable({providedIn: 'root'})
 export class PostsService {
   private posts: Post[] = [];
+  private reviews: Review[] = [];
   private postsUpdated = new Subject<Post[]>();
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -45,6 +47,7 @@ export class PostsService {
         this.postsUpdated.next([...this.posts]);
       });
   }
+
 
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();

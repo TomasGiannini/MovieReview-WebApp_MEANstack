@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'addReview/:postId', component: ReviewCreateComponent }
+  { path: 'addReview/:postTitle', component: ReviewCreateComponent }
 ];
 
 

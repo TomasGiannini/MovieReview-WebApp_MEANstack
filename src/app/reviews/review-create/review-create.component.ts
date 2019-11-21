@@ -10,12 +10,23 @@ import { Review } from '../review.model';
   templateUrl: './review-create.component.html'
 
 })
-export class ReviewCreateComponent {
+export class ReviewCreateComponent implements OnInit {
 
-private postId: string;
+private postTitle: string;
 review: Review;
 
-constructor(public reviewsService: ReviewsService) {}
+constructor(public reviewsService: ReviewsService, public route: ActivatedRoute) {}
+
+ngOnInit() {
+
+  this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    // if the param in the URL has postTitle, which was defined in app-routing module
+    if (paramMap.has('postTitle')) {
+      this.postTitle = paramMap.get('postTitle');
+    }
+  });
+
+}
 
 onSaveReview(form: NgForm) {
   // if the required fields are not populated, nothing will get added to post array
@@ -25,7 +36,7 @@ onSaveReview(form: NgForm) {
   // postId is undefined here
   // rating and report are correct at this point
   this.reviewsService.addReview(
-    this.postId,
+    this.postTitle,
     form.value.rating,
     form.value.report);
 

@@ -8,15 +8,16 @@ import { Review } from './review.model';
 
 @Injectable({providedIn: 'root'})
 export class ReviewsService {
-  private reviews: Review[] = [];
+  private reviews: Review;
   private reviewsUpdated = new Subject<Review[]>();
+  //private reviewsUpdated = new Subject<Review[]>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  addReview(postId: string, rating: number, report: string) {
+  addReview(postTitle: string, rating: number, report: string) {
 
     const review: Review = {
-      songSrc: postId,
+      songSrc: postTitle,
       rating: rating,
       report: report
     };
@@ -27,5 +28,19 @@ export class ReviewsService {
       });
   }
 
+  getReviews() {
+    return this.http
+      .get<{ message: string, songSrc: string, rating: number, report: string }>(
+        'http://localhost:3000/api/reviews'
+      )
+      .subscribe(transformedReviews => {
+        this.reviews = transformedReviews;
+        //this.postsUpdated.next([...this.posts]);
+      });
+  }
+
+  getReviewUpdateListener() {
+    return this.reviewsUpdated.asObservable();
+  }
 
 }
