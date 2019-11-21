@@ -41,7 +41,8 @@
         Review: {{ review.report }}
       </p>
     </h3>
-    <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
+    <!--&& userId === post.creator UNDERNEATH HERE-->
+    <mat-action-row *ngIf="userIsAuthenticated">
       <a mat-button color="primary" [routerLink]="['/addReview', post.title]">Add Review</a>
       <!--<a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>-->
       <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
