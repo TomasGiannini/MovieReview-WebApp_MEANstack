@@ -14,6 +14,10 @@ export class PostFilterPipe implements PipeTransform {
 
     return posts.filter(post =>
       (post.title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
-      post.content.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+      (post.content.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
+      (post.album.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
+      (post.genre.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
+      (post.header.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) );
+      // COMMENT DOESNT WORK
   }
 }

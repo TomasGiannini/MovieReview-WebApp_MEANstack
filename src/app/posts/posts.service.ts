@@ -107,7 +107,7 @@ export class PostsService {
       });
   }
 
-
+/*
   updatePost(id: string, title: string, content: string) {
     const post: Post = {
       id: id,
@@ -126,5 +126,5 @@ export class PostsService {
       this.router.navigate(['/']);
     });
   }
-
+*/
 }
