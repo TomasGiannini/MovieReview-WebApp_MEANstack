@@ -8,7 +8,8 @@ import { Review } from './review.model';
 
 @Injectable({providedIn: 'root'})
 export class ReviewsService {
-  private reviews: Review;
+  //private reviews: Review;
+  private reviews: Review[] = [];
   private reviewsUpdated = new Subject<Review[]>();
   //private reviewsUpdated = new Subject<Review[]>();
 
@@ -29,13 +30,28 @@ export class ReviewsService {
   }
 
   getReviews() {
-    return this.http
-      .get<{ message: string, songSrc: string, rating: number, report: string }>(
+    this.http
+      .get<{ message: string; reviews: any }>(
         'http://localhost:3000/api/reviews'
       )
+      // pipe allows u to add in an operator
+      // map allows u to get elements of an array and transform them then add them into new array?
+      .pipe(map((reviewData => {
+        // posts is returned as an array so we will map it to a new array with slight altercations
+        // post.whatever is what is return from backend and we are redefining it for front end to get rid of the _id value that is returned
+        // (CONTD from above) since the front end has property 'id', not '_id'
+        return reviewData.reviews.map(review => {
+          return {
+            songSrc: review.songSrc,
+            creator: 'creator',
+            rating: review.rating,
+            report: review.report
+          };
+        });
+      })))
       .subscribe(transformedReviews => {
         this.reviews = transformedReviews;
-        //this.postsUpdated.next([...this.posts]);
+        this.reviewsUpdated.next([...this.reviews]);
       });
   }
 

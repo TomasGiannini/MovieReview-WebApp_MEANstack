@@ -47,12 +47,14 @@ export class PostListComponent implements OnInit, OnDestroy {
           this.userId = this.authService.getUserId();
         });
 
-        // obtain all reviews
-        this.reviewsSub = this.reviewsService.getReviewUpdateListener()
+      // obtain all reviews
+      this.reviewsService.getReviews();
+      // listening for the subject in postsService for everytime new posts are pushed to list
+      this.reviewsSub = this.reviewsService.getReviewUpdateListener()
         .subscribe((reviews: Review[]) => {
-
           this.reviews = reviews;
         });
+
 
   }
 

@@ -27,10 +27,17 @@
       Most recent review:
     </p>
     <hr>
-    <p *ngFor="let review of reviews">
-      REVIEWS:
-      {{ review.songSrc }}
-    </p>
+    REVIEWS:
+    <h1 *ngFor="let review of reviews">
+      <p *ngIf="review.songSrc === post.title">
+        <br>
+        <br>
+        Rating: {{ review.rating }}
+        <br>
+        <br>
+        Review: {{ review.report }}
+      </p>
+    </h1>
     <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
       <a mat-button color="primary" [routerLink]="['/addReview', post.title]">Add Review</a>
       <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
