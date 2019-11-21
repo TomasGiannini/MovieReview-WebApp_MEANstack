@@ -19,4 +19,21 @@
         <button mat-button (click)="onLogout()">Logout</button>
     </li>
   </ul>
+
+</mat-toolbar>
+
+<mat-toolbar *ngIf="userIsAdmin">
+  <ul>
+    <li>
+      <button>Create policy</button>
+    </li>
+
+    <li>
+      <button>Create DMCA</button>
+    </li>
+
+    <li>
+      <button>Tools</button>
+    </li>
+  </ul>
 </mat-toolbar>

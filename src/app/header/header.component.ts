@@ -12,9 +12,10 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   // allows this class to subscribe to shit
-  private authListenerSubs: Subscription
+  private authListenerSubs: Subscription;
 
   userIsAuthenticated = false;
+  userIsAdmin = false;
 
   // declaring use of authService class
   constructor(private authService: AuthService) {}
@@ -26,6 +27,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+
+    // check userIsAdmin
+    this.userIsAdmin = this.authService.userIsAdmin;
+
+    // display Admin functionality
   }
 
   // clear the token and inform all interested parties about the change

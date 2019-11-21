@@ -15,6 +15,7 @@ export class AuthService {
 
   // used to make sure the edit/delete buttons show properly when ur logged in
   private isAuthenticated = false;
+  public userIsAdmin;
 
   private tokenTimer: any;
   private userId: string;
@@ -47,6 +48,14 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
+
+    // proper email gets to this point
+
+    // check if Admin
+    if (email === 'admin@admin.com') {
+      // proper email gets to this point
+      this.userIsAdmin = true;
+    }
     const authData: AuthData = { email: email, password: password }
     this.http.post<{token: string, expiresIn: number, userId: string }>('http://localhost:3000/api/user/login', authData)
       .subscribe(response => {
