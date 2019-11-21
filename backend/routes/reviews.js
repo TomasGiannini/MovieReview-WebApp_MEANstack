@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("", (req, res, next) => {
   const review = new Review({
-    postSrc: 'song',
+    songSrc: req.body.songSrc,
     creator: 'creator',
     rating: req.body.rating,
     report: req.body.report
@@ -15,8 +15,10 @@ router.post("", (req, res, next) => {
     .then((createdReview) => {
       res.status(201).json({
         message: 'review added successfully',
-        //postId: createdPost._id
       });
+    })
+    .catch(() => {
+      console.log('REVIEW DID NOT GET ADDED')
     });
 });
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const reviewSchema = mongoose.Schema({
-  postSrc: {
+  songSrc: {
     //type: mongoose.Schema.Types.ObjectId,
     type: String,
     required: true,
@@ -10,7 +10,7 @@ const reviewSchema = mongoose.Schema({
   creator: {
     //type: mongoose.Schema.Types.ObjectId,
     type: String,
-    required: true,
+    //required: true,
     ref: "User"
   },
   rating: {

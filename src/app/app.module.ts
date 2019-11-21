@@ -22,12 +22,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { ReviewCreateComponent } from './reviews/review-create/review-create.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PostCreateComponent,
+    ReviewCreateComponent,
     HeaderComponent,
     PostListComponent,
     LoginComponent,

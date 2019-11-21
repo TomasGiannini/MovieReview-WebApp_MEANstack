@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from 'rxjs';
 
 import { Post } from '../post.model';
-import { Review } from '../review.model';
+import { Review } from '../../reviews/review.model';
 import { PostsService } from '../posts.service';
 import { AuthService } from '../../auth/auth.service';
 
