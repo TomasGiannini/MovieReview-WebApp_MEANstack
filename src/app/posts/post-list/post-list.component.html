@@ -2,8 +2,11 @@
   Tune Review is a website dedicated to all music lovers! Here you will find reviews on any song you can think of
 </p>
 
+<input matInput type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm"/>
+
+
 <mat-accordion multi="true" *ngIf="posts.length > 0">
-  <mat-expansion-panel *ngFor="let post of posts">
+  <mat-expansion-panel *ngFor="let post of posts | postFilter:searchTerm">
     <mat-expansion-panel-header>
       {{ post.title }}
     </mat-expansion-panel-header>

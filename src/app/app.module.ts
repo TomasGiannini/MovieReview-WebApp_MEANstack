@@ -22,7 +22,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
-import { ReviewCreateComponent } from './reviews/review-create/review-create.component'
+import { ReviewCreateComponent } from './reviews/review-create/review-create.component';
+import { PostFilterPipe } from './posts/post-list/post-filter.pipe';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ReviewCreateComponent } from './reviews/review-create/review-create.com
     HeaderComponent,
     PostListComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    PostFilterPipe
   ],
   imports: [
     BrowserModule,

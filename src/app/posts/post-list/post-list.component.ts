@@ -23,6 +23,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   private authStatusSub: Subscription;
   userIsAuthenticated = false;
   userId: string;
+  searchTerm: string;
 
   // angular calls and gives u the parameters for this constrcutor auto
   // public keyword auto creates new property called postsService of type class PostsService
