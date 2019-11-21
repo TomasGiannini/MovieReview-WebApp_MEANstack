@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PostsService } from '../posts.service';
 import { Post } from '../post.model';
+
+import { ReviewsService } from '../../reviews/reviews.service';
+import { Review } from '../../reviews/review.model';
 
 // this is a custom built class template. We need to declare, import, etc
 @Component({
@@ -21,12 +24,14 @@ export class PostCreateComponent implements OnInit {
   private mode = 'create';
   private postId: string;
   post: Post;
+  review: Review;
+
   // used for the loading spinner
   isLoading = false;
   // must use a decorator to turn it into an event that can be listened to from the outside(aka parent component)
   // @Output() postCreated = new EventEmitter<Post>();
 
-  constructor(public postsService: PostsService, public route: ActivatedRoute) {}
+  constructor(public postsService: PostsService, public route: ActivatedRoute, public reviewsService: ReviewsService) {}
 
   // subscribing to an observable. Listening to changes in the route aka URL and can update UI depending if were adding
   // (contd) a post or edtiting a post
@@ -75,9 +80,31 @@ export class PostCreateComponent implements OnInit {
         form.value.track,
         form.value.zeroByte,
         form.value.header);
+        //console.log('Values for report and rating');
+        //console.log(form.value.rating);
+          //  console.log(form.value.report);
+
+        // check if a review was added
+    if (form.value.report !== null && form.value.rating !== null) {
+          // add the review
+            //console.log('Values for report and rating');
+            //console.log(form.value.rating);
+            //console.log(form.value.report);
+            //console.log(form.value.title);
+            this.reviewsService.addReview(form.value.title, form.value.rating, form.value.report);
+    }
+
     } else {
       //this.postsService.updatePost(this.postId, form.value.title, form.value.content);
     }
+
     form.resetForm();
+  }
+
+  onAddReview(form: NgForm) {
+    if(form.invalid) {
+      return ;
+    }
+    this.reviewsService.addReview(form.value.title, form.value.rating, form.value.report);
   }
 }
