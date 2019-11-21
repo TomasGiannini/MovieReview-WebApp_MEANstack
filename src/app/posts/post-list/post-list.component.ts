@@ -56,6 +56,7 @@ export class PostListComponent implements OnInit, OnDestroy {
           this.reviews = reviews;
         });
 
+      // for
 
   }
 

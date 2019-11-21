@@ -3,7 +3,7 @@
 </p>
 
 <input matInput type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm"/>
-
+<hr>
 
 <mat-accordion multi="true" *ngIf="posts.length > 0">
   <mat-expansion-panel *ngFor="let post of posts | postFilter:searchTerm">
@@ -30,8 +30,8 @@
       Most recent review:
     </p>
     <hr>
-    REVIEWS:
-    <h1 *ngFor="let review of reviews">
+    <b>Reviews:</b>
+    <h3 class="review-list" *ngFor="let review of reviews">
       <p *ngIf="review.songSrc === post.title">
         <br>
         <br>
@@ -40,7 +40,7 @@
         <br>
         Review: {{ review.report }}
       </p>
-    </h1>
+    </h3>
     <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
       <a mat-button color="primary" [routerLink]="['/addReview', post.title]">Add Review</a>
       <!--<a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>-->
