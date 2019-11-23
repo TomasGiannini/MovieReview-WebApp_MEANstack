@@ -7,7 +7,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ReviewCreateComponent } from './reviews/review-create/review-create.component';
 import { AdminCreateComponent } from './admin/admin-create/admin-create.component';
-import { PolicyCreateComponent } from './admin/policy-create/policy-create.component';
+import { PolicyCreateComponent } from './admin/policy/policy-create/policy-create.component';
+import { PolicyViewComponent } from './admin/policy/policy-view/policy-view.component';
 
 // routing to files which take care of different things
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'addReview/:postTitle', component: ReviewCreateComponent },
   { path: 'addAdmin', component: AdminCreateComponent },
-  { path: 'addPolicy', component: PolicyCreateComponent }
+  { path: 'addPolicy', component: PolicyCreateComponent },
+  { path: 'viewPolicy', component: PolicyViewComponent }
 ];
 
 

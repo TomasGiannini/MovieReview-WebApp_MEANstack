@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const takedownNoticeSchema = mongoose.Schema({
+const takedownSchema = mongoose.Schema({
   policy: {
     type: String,
     required: true
@@ -9,4 +9,4 @@ const takedownNoticeSchema = mongoose.Schema({
 });
 
 //model name and schema u want to use for it
-module.exports = mongoose.model('TakedownNotice', takedownNoticeSchema);
+module.exports = mongoose.model('Takedown', takedownSchema);

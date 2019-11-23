@@ -1,9 +1,9 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { NgForm, Form } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
-import { PolicyService } from './policy.service';
-import { Policy } from './policy.model';
+import { AuthService } from '../../../auth/auth.service';
+import { PolicyService } from '../policy.service';
+import { Policy } from '../policy.model';
 import { Subscription } from 'rxjs';
 
 // this is a custom built class template. We need to declare, import, etc

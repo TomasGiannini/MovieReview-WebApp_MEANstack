@@ -1,14 +1,14 @@
 const express = require("express");
-const TakedownNotice = require("../models/takedownNotice");
+const Takedown = require("../models/takedown");
 
 const router = express.Router();
 
 router.post("", (req, res, next) => {
-    const takedownNotice = new TakedownNotice({ policy: req.body.policy });
-    takedownNotice.save()
+    const takedown = new Takedown({ policy: req.body.policy });
+    takedown.save()
       .then(result => {
         res.status(201).json({
-          message: "Policy created!",
+          message: "Takedown created!",
           policy: result
         });
       })
@@ -20,11 +20,11 @@ router.post("", (req, res, next) => {
 });
 
 router.get("", (req, res, next) => {
-    TakedownNotice.find()
-    .then(policies => {
+    Takedown.find()
+    .then(takedowns => {
       res.status(200).json({
-        message: "Posts fetched successfully!",
-        policy: policies
+        message: "takedowns fetched successfully!",
+        policy: takedowns
       });
     });
 });

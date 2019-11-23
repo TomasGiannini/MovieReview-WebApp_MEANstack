@@ -25,13 +25,15 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { ReviewCreateComponent } from './reviews/review-create/review-create.component';
 import { PostFilterPipe } from './posts/post-list/post-filter.pipe';
 import { AdminCreateComponent } from './admin/admin-create/admin-create.component';
-import { PolicyCreateComponent } from './admin/policy-create/policy-create.component';
+import { PolicyCreateComponent } from './admin/policy/policy-create/policy-create.component';
+import { PolicyViewComponent } from './admin/policy/policy-view/policy-view.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PostCreateComponent,
+    PolicyViewComponent,
     ReviewCreateComponent,
     HeaderComponent,
     AdminCreateComponent,
