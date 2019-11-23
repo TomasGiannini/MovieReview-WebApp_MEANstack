@@ -8,16 +8,15 @@ import { Takedown } from '../takedown.model';
 
 // this is a custom built class template. We need to declare, import, etc
 @Component({
-  selector: 'app-takedown-create',
-  templateUrl: './takedown-create.component.html'
+  selector: 'app-takedown-view',
+  templateUrl: './takedown-view.component.html'
 
 })
-export class TakedownCreateComponent implements OnInit {
+export class TakedownViewComponent implements OnInit {
 
   takedownsies: Takedown[] = [];
   private takedownSub: Subscription;
   private isTakedown = 0;
-
 
   constructor(public route: ActivatedRoute, private authService: AuthService, private policyService: PolicyService) {}
 
@@ -29,16 +28,8 @@ export class TakedownCreateComponent implements OnInit {
         this.takedownsies = takedowns;
       });
     this.isTakedown = this.policyService.getIsTakedown();
+    console.log(this.takedownsies);
 
-  }
-
-  onCreateTakedown(form: NgForm) {
-
-    if (form.invalid) {
-      return ;
-    }
-    this.policyService.addTakedown(form.value.takedown);
-    form.resetForm();
   }
 
 }

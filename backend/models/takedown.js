@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const takedownSchema = mongoose.Schema({
-  policy: {
+  takedown: {
     type: String,
     required: true
   }

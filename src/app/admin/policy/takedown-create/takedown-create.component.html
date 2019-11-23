@@ -1,0 +1,24 @@
+<mat-card>
+    <form (submit)="onCreateTakedown(takedownForm)" #takedownForm="ngForm">
+        <mat-form-field>
+            <input
+              matInput
+              name="takedown"
+              type="text"
+              ngModel
+              required
+              placeholder="Takedown and Notice Policy"
+              #takedown="ngModel">
+          </mat-form-field>
+          <br>
+          <button *ngIf="!isTakedown"
+            mat-raised-button
+            type="submit">Add Notice</button>
+    </form>
+
+    <h3 *ngFor="let takedown of takedownsies">
+        <p>
+          {{ takedown.takedown }}
+        </p>
+      </h3>
+</mat-card>

@@ -8,9 +8,7 @@ import { Subscription } from 'rxjs';
 
 // this is a custom built class template. We need to declare, import, etc
 @Component({
-  // selector used for creating html tag
   selector: 'app-policy-create',
-  // where the component file is
   templateUrl: './policy-view.component.html'
 
 })

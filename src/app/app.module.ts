@@ -27,6 +27,8 @@ import { PostFilterPipe } from './posts/post-list/post-filter.pipe';
 import { AdminCreateComponent } from './admin/admin-create/admin-create.component';
 import { PolicyCreateComponent } from './admin/policy/policy-create/policy-create.component';
 import { PolicyViewComponent } from './admin/policy/policy-view/policy-view.component';
+import { TakedownCreateComponent } from './admin/policy/takedown-create/takedown-create.component';
+import { TakedownViewComponent } from './admin/policy/takedown-view/takedown-view.component';
 
 
 @NgModule({
@@ -34,11 +36,13 @@ import { PolicyViewComponent } from './admin/policy/policy-view/policy-view.comp
     AppComponent,
     PostCreateComponent,
     PolicyViewComponent,
+    TakedownViewComponent,
     ReviewCreateComponent,
     HeaderComponent,
     AdminCreateComponent,
     PostListComponent,
     LoginComponent,
+    TakedownCreateComponent,
     SignupComponent,
     PostFilterPipe,
     PolicyCreateComponent
