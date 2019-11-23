@@ -1,0 +1,18 @@
+<mat-card>
+    <form (submit)="onCreatePolicy(policyForm)" #policyForm="ngForm">
+        <mat-form-field>
+            <input
+              matInput
+              name="policy"
+              type="text"
+              ngModel
+              required
+              placeholder="Security Policy"
+              #policy="ngModel">
+          </mat-form-field>
+          <br>
+          <button
+            mat-raised-button
+            type="submit">Add Policy</button>
+    </form>
+</mat-card>
