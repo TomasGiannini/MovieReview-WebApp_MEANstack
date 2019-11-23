@@ -7,6 +7,7 @@ const userRoutes = require('./routes/user');
 const reviewRoutes = require('./routes/reviews');
 const adminRoutes = require('./routes/admin');
 const policyRoutes = require('./routes/policy');
+const takedownNoticeRoutes = require('./routes/takedownNotice');
 
 const app = express();
 
@@ -40,5 +41,6 @@ app.use('/api/user', userRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/policy', policyRoutes);
+app.use('/api/takedownNotice', takedownNoticeRoutes);
 
 module.exports = app;
