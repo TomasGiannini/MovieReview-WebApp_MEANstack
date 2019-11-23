@@ -1,0 +1,29 @@
+<mat-card>
+    <form (submit)="onCreateAdmin(adminForm)" #adminForm="ngForm">
+        <mat-form-field>
+            <input
+              matInput
+              name="email"
+              type="email"
+              ngModel
+              required email
+              placeholder="Email Address of User"
+              #emailInput="ngModel">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input
+            type="password"
+            name="password"
+            matInput
+            ngModel
+            #passwordInput="ngModel"
+            required
+            placeholder="New Password">
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            type="submit">Add Admin</button>
+    </form>
+    </mat-card>

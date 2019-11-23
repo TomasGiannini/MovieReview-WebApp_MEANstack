@@ -6,6 +6,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ReviewCreateComponent } from './reviews/review-create/review-create.component';
+import { AdminCreateComponent } from './admin/admin-create/admin-create.component';
+import { PolicyCreateComponent } from './admin/policy-create/policy-create.component';
 
 // routing to files which take care of different things
 const routes: Routes = [
@@ -15,7 +17,9 @@ const routes: Routes = [
   { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'addReview/:postTitle', component: ReviewCreateComponent }
+  { path: 'addReview/:postTitle', component: ReviewCreateComponent },
+  { path: 'addAdmin', component: AdminCreateComponent },
+  { path: 'addPolicy', component: PolicyCreateComponent }
 ];
 
 

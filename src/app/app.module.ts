@@ -24,6 +24,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ReviewCreateComponent } from './reviews/review-create/review-create.component';
 import { PostFilterPipe } from './posts/post-list/post-filter.pipe';
+import { AdminCreateComponent } from './admin/admin-create/admin-create.component';
+import { PolicyCreateComponent } from './admin/policy-create/policy-create.component';
 
 
 @NgModule({
@@ -32,10 +34,12 @@ import { PostFilterPipe } from './posts/post-list/post-filter.pipe';
     PostCreateComponent,
     ReviewCreateComponent,
     HeaderComponent,
+    AdminCreateComponent,
     PostListComponent,
     LoginComponent,
     SignupComponent,
-    PostFilterPipe
+    PostFilterPipe,
+    PolicyCreateComponent
   ],
   imports: [
     BrowserModule,
