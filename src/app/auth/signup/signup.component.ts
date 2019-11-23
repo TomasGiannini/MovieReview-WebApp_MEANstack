@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, EmailValidator } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
 
 export class SignupComponent {
   isLoading = false;
+  adminString = '@admin.com';
 
   constructor(public authService: AuthService) {}
 
@@ -16,6 +17,13 @@ export class SignupComponent {
     if (form.invalid) {
       return;
     }
-    this.authService.createUser(form.value.email, form.value.password);
+    const email = form.value.email;
+
+    // signup a USER or ADMIN
+    if (email.indexOf(this.adminString) !== -1) {
+      this.authService.createAdmin(form.value.email, form.value.password);
+    } else {
+      this.authService.createUser(form.value.email, form.value.password);
+    }
   }
 }

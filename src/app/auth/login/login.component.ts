@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
 
 export class LoginComponent {
   isLoading = false;
+  adminString = '@admin.com';
 
   constructor(public authService: AuthService) {}
 
@@ -16,6 +17,13 @@ export class LoginComponent {
     if (form.invalid) {
       return ;
     }
-    this.authService.login(form.value.email, form.value.password);
+    const email = form.value.email;
+
+    // login a USER or ADMIN
+    if (email.indexOf(this.adminString) !== -1) {
+      this.authService.loginAdmin(form.value.email, form.value.password);
+    } else {
+      this.authService.login(form.value.email, form.value.password);
+    }
   }
 }

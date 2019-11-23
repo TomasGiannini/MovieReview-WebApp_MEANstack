@@ -80,17 +80,9 @@ export class PostCreateComponent implements OnInit {
         form.value.track,
         form.value.zeroByte,
         form.value.header);
-        //console.log('Values for report and rating');
-        //console.log(form.value.rating);
-          //  console.log(form.value.report);
-
         // check if a review was added
     if (form.value.report !== null && form.value.rating !== null) {
           // add the review
-            //console.log('Values for report and rating');
-            //console.log(form.value.rating);
-            //console.log(form.value.report);
-            //console.log(form.value.title);
             this.reviewsService.addReview(form.value.title, form.value.rating, form.value.report);
     }
 
