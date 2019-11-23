@@ -1,5 +1,4 @@
-
-  <mat-card>
+<mat-card>
     <form (submit)="onCreatePolicy(policyForm)" #policyForm="ngForm">
         <mat-form-field>
             <input
@@ -16,7 +15,10 @@
             mat-raised-button
             type="submit">Add Policy</button>
     </form>
-    <p>
-      {{ policys }}
-    </p>
+
+    <h3 *ngFor="let policy of policies">
+        <p>
+          {{ policy.policy }}
+        </p>
+      </h3>
 </mat-card>
