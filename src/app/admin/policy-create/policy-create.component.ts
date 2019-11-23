@@ -19,6 +19,7 @@ export class PolicyCreateComponent implements OnInit {
 
   policies: Policy[] = [];
   private policySub: Subscription;
+  private isPolicy = 0;
 
 
   constructor(public route: ActivatedRoute, private authService: AuthService, private policyService: PolicyService) {}
@@ -30,6 +31,8 @@ export class PolicyCreateComponent implements OnInit {
       .subscribe((policys: Policy[]) => {
         this.policies = policys;
       });
+    this.isPolicy = this.policyService.getIsPolicy();
+
   }
 
   onCreatePolicy(form: NgForm) {

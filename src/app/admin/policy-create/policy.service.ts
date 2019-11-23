@@ -10,6 +10,7 @@ export class PolicyService {
 
 private policy: Policy[] = [];
 private policyUpdated = new Subject<Policy[]>();
+private isPolicy = 0;
 
 constructor(private http: HttpClient, private router: Router) {}
 
@@ -45,6 +46,12 @@ addPolicy(policy: string) {
     .subscribe(responseData => {
       this.router.navigate(['/']);
     });
+
+  this.isPolicy = 1;
+}
+
+getIsPolicy() {
+  return this.isPolicy;
 }
 
 }

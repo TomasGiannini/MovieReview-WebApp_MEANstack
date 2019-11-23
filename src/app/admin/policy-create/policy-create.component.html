@@ -11,7 +11,7 @@
               #policy="ngModel">
           </mat-form-field>
           <br>
-          <button
+          <button *ngIf="!isPolicy"
             mat-raised-button
             type="submit">Add Policy</button>
     </form>

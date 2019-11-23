@@ -26,6 +26,10 @@
     <li *ngIf="adminIsAuthenticated && !userIsAuthenticated">
         <a mat-button routerLink="/addPolicy" routerLinkActive="mat-accent">Add Security Policy</a>
     </li>
+
+    <li *ngIf="userIsAuthenticated">
+        <a mat-button routerLink="/addPolicy" routerLinkActive="mat-accent">Add Security Policy</a>
+    </li>
   </ul>
 
 </mat-toolbar>
