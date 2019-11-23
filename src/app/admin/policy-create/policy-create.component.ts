@@ -12,19 +12,23 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./policy-create.component.css']
 
 })
-export class PolicyCreateComponent{
+export class PolicyCreateComponent implements OnInit {
 
+  public policys: 'hellot';
+  public isPolicy: boolean;
   constructor(public route: ActivatedRoute, private authService: AuthService) {}
+
+  ngOnInit() {
+
+  }
 
   onCreatePolicy(form: NgForm) {
 
     if (form.invalid){
       return;
     }
-
-    // create the user in admin databaase
-    // this.authService.createAdmin(form.value.email, form.value.password);
-
+    //this.policys = form.value.policy;
+    //this.isPolicy = true;
     form.resetForm();
 
   }
