@@ -12,13 +12,17 @@ export class AuthService {
   private token: string;
   // for telling if user is authenticated or not for the front end shit
   private authStatusListener = new Subject<boolean>();
+  private adminauthStatusListener = new Subject<boolean>();
 
   // used to make sure the edit/delete buttons show properly when ur logged in
   private isAuthenticated = false;
-  public userIsAdmin;
+  // same thing but for admin
+  private adminIsAuthenticated = false;
 
   private tokenTimer: any;
   private userId: string;
+  // same thing but for admin
+  private adminId: string;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -30,8 +34,17 @@ export class AuthService {
     return this.userId;
   }
 
+  getAdminId() {
+    return this.adminId;
+  }
+
   getIsAuth() {
     return this.isAuthenticated;
+  }
+
+  // ADMIN version
+  getAdminIsAuth() {
+    return this.adminIsAuthenticated;
   }
 
   getAuthStatusListener() {
@@ -39,23 +52,34 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string ) {
-    const authData: AuthData = { email: email, password: password }
+  // ADMIN version
+  getAdminAuthStatusListener() {
+    // return auth status as an observable so other components can subscribe and react accorindgly to changes
+    return this.adminauthStatusListener.asObservable();
+  }
+
+// creates normal users
+createUser(email: string, password: string ) {
+    const authData: AuthData = { email: email, password: password};
     this.http.post('http://localhost:3000/api/user/signup', authData)
       .subscribe(response => {
         console.log(response);
       });
+    this.router.navigate(['/']);
   }
 
-  login(email: string, password: string) {
+// creates admins
+createAdmin(email: string, password: string) {
+    const authData: AuthData = { email: email, password: password};
+    this.http.post('http://localhost:3000/api/admin/signup', authData)
+      .subscribe(response => {
+        console.log(response);
+      });
+    this.router.navigate(['/']);
+  }
 
-    // proper email gets to this point
+login(email: string, password: string) {
 
-    // check if Admin
-    if (email === 'admin@admin.com') {
-      // proper email gets to this point
-      this.userIsAdmin = true;
-    }
     const authData: AuthData = { email: email, password: password }
     this.http.post<{token: string, expiresIn: number, userId: string }>('http://localhost:3000/api/user/login', authData)
       .subscribe(response => {
@@ -77,14 +101,47 @@ export class AuthService {
       });
   }
 
+  loginAdmin(email: string, password: string) {
+
+    const authData: AuthData = { email: email, password: password }
+    this.http.post<{token: string, expiresIn: number, adminId: string }>('http://localhost:3000/api/admin/login', authData)
+      .subscribe(response => {
+        const token = response.token;
+        this.token = token;
+        if (token) {
+          const expiresInDuration = response.expiresIn;
+          this.setAuthTimer(expiresInDuration);
+          this.adminIsAuthenticated = true;
+          this.adminId = response.adminId;
+          // inform everyone subscribed to this variable tht the current user is authenticated
+          this.adminauthStatusListener.next(true);
+          const now = new Date();
+          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+          this.saveAuthData(token, expirationDate, this.adminId);
+          // navigate back to homepage when logged in
+          this.router.navigate(['/']);
+        }
+      });
+  }
+
 
   logout() {
     this.token = null;
     this.isAuthenticated = false;
+
+    // admin version
+    this.adminIsAuthenticated = false;
     // sends a signal to the parties subscribed
     this.authStatusListener.next(false);
+
+    // admin version
+    this.adminauthStatusListener.next(false);
     this.clearAuthData();
+
     this.userId = null;
+    // admin version
+    this.adminId = null;
+
     // navigate back to homepage when logged out
     this.router.navigate(['/']);
     clearTimeout(this.tokenTimer);

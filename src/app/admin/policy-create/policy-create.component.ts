@@ -14,22 +14,14 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class PolicyCreateComponent implements OnInit {
 
-  public policys: 'hellot';
-  public isPolicy: boolean;
+  policy = '';
+  signal = 0;
+
   constructor(public route: ActivatedRoute, private authService: AuthService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
 
-  }
-
-  onCreatePolicy(form: NgForm) {
-
-    if (form.invalid){
-      return;
-    }
-    //this.policys = form.value.policy;
-    //this.isPolicy = true;
-    form.resetForm();
+  onCreatePolicy(postInput: HTMLTextAreaElement) {
 
   }
 

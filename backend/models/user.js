@@ -10,9 +10,7 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  },
-  isAdmin: Boolean,
-  isDeactivated: Boolean
+  }
 });
 
 // uniqueValidator is a plugin tht provides an extra hook to check ur data b4 saving to db
