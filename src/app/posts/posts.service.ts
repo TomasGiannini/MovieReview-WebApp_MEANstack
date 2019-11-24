@@ -70,7 +70,7 @@ export class PostsService {
     }>(this.postUrlslash + id);
   }
 
-  addPost(title: string, content: string, album: string, year: number, genre: string, comment: string, track: number, zeroByte: number, header: string) {
+  addPost(title: string, content: string, album: string, year: string, genre: string, comment: string, track: string, zeroByte: string, header: string) {
     const post: Post = {
       id: null,
       title: title,

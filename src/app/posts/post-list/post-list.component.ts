@@ -32,6 +32,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   currentSum = 0;
   currentReviewCount = 0;
 
+  private adminauthListenerSubs: Subscription;
+  adminIsAuthenticated = false;
+
   // angular calls and gives u the parameters for this constrcutor auto
   // public keyword auto creates new property called postsService of type class PostsService
   constructor(public postsService: PostsService, private authService: AuthService, public reviewsService: ReviewsService) {}
@@ -46,46 +49,30 @@ export class PostListComponent implements OnInit, OnDestroy {
       .subscribe((posts: Post[]) => {
         this.posts = posts;
       });
-      // check auth status right away for edit/delete buttons
-      this.userIsAuthenticated = this.authService.getIsAuth();
-      // make this components subscription service subscribe to the observable in authService
-      this.authStatusSub = this.authService.getAuthStatusListener()
+    // check auth status right away for edit/delete buttons
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    // make this components subscription service subscribe to the observable in authService
+    this.authStatusSub = this.authService.getAuthStatusListener()
         .subscribe(isAuthenticated => {
           this.userIsAuthenticated = isAuthenticated;
           this.userId = this.authService.getUserId();
         });
 
-      // obtain all reviews
-      this.reviewsService.getReviews();
-      // listening for the subject in postsService for everytime new posts are pushed to list
-      this.reviewsSub = this.reviewsService.getReviewUpdateListener()
+    // obtain all reviews
+    this.reviewsService.getReviews();
+    // listening for the subject in postsService for everytime new posts are pushed to list
+    this.reviewsSub = this.reviewsService.getReviewUpdateListener()
         .subscribe((reviews: Review[]) => {
           this.reviews = reviews;
         });
 
-    this.numSongs = this.posts.length;
-    this.numReviews = this.reviews.length;
-
-    // loop songs
-    for(const song of this.posts) {
-
-      this.currentSong = song.title;
-
-      // loop reviews
-      for(let review of this.reviews) {
-
-        // if a review is for the song we are currently on
-        if (review.songSrc === song.title) {
-          this.currentSum = review.rating + this.currentSum;
-          this.currentReviewCount ++;
-        }
-
-      }
-      // average rating for song x
-      this.currentAvg = this.currentSum / this.currentReviewCount;
-      song.avgRating = this.currentAvg;
-
-    }
+     // ADMIN VERSION
+     this.adminIsAuthenticated = this.authService.getAdminIsAuth();
+     // ADMIN VERSION
+     this.adminauthListenerSubs = this.authService.getAdminAuthStatusListener()
+         .subscribe(isadminAuthenticated => {
+           this.adminIsAuthenticated = isadminAuthenticated;
+         });
 
   }
 

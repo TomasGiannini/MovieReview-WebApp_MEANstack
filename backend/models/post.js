@@ -15,11 +15,11 @@ const postSchema = mongoose.Schema({
     ref: "User"
   },
   album: String,
-  year: Number,
+  year: String,
   genre: String,
   comment: String,
-  track: Number,
-  zeroByte: Number,
+  track: String,
+  zeroByte: String,
   header: String
 });
 
