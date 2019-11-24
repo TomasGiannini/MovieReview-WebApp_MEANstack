@@ -27,7 +27,7 @@
             type="submit">Add Admin</button>
 
     </form>
-
+    <br>
     <form (submit)="onDeactivateUser(deacForm)" #deacForm="ngForm">
         <mat-form-field>
             <input
@@ -54,6 +54,35 @@
           <button
             mat-raised-button
             type="submit">Deactivate User</button>
+
+    </form>
+    <br>
+    <form (submit)="onReactivateUser(reacForm)" #reacForm="ngForm">
+        <mat-form-field>
+            <input
+              matInput
+              name="email"
+              type="email"
+              ngModel
+              required email
+              placeholder="Email Address of User"
+              #emailInput="ngModel">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input
+            type="password"
+            name="password"
+            matInput
+            ngModel
+            #passwordInput="ngModel"
+            required
+            placeholder="Password of user">
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            type="submit">Reactivate deactivated User</button>
 
     </form>
     </mat-card>

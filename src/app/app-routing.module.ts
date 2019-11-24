@@ -11,6 +11,7 @@ import { PolicyCreateComponent } from './admin/policy/policy-create/policy-creat
 import { PolicyViewComponent } from './admin/policy/policy-view/policy-view.component';
 import { TakedownCreateComponent } from './admin/policy/takedown-create/takedown-create.component';
 import { TakedownViewComponent } from './admin/policy/takedown-view/takedown-view.component';
+import { ToolsViewComponent } from './admin/tools/tools-view/tools-view.component';
 
 // routing to files which take care of different things
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'addPolicy', component: PolicyCreateComponent },
   { path: 'viewPolicy', component: PolicyViewComponent },
   { path: 'addTakedown', component: TakedownCreateComponent },
-  { path: 'viewTakedown', component: TakedownViewComponent }
+  { path: 'viewTakedown', component: TakedownViewComponent },
+  { path: 'viewTools', component: ToolsViewComponent }
 ];
 
 

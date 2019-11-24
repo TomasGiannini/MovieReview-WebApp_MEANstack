@@ -33,7 +33,6 @@
     <b>Reviews:</b>
     <h3 class="review-list" *ngFor="let review of reviews">
       <p *ngIf="review.songSrc === post.title">
-        Avg Rating: {{ post.avgRating }}
         <br>
         <br>
         Rating: {{ review.rating }}

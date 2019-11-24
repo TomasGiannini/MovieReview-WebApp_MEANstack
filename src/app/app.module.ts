@@ -14,7 +14,6 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
-// importing the custom component/classes we made
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
@@ -29,6 +28,7 @@ import { PolicyCreateComponent } from './admin/policy/policy-create/policy-creat
 import { PolicyViewComponent } from './admin/policy/policy-view/policy-view.component';
 import { TakedownCreateComponent } from './admin/policy/takedown-create/takedown-create.component';
 import { TakedownViewComponent } from './admin/policy/takedown-view/takedown-view.component';
+import { ToolsViewComponent } from './admin/tools/tools-view/tools-view.component';
 
 
 @NgModule({
@@ -40,6 +40,7 @@ import { TakedownViewComponent } from './admin/policy/takedown-view/takedown-vie
     ReviewCreateComponent,
     HeaderComponent,
     AdminCreateComponent,
+    ToolsViewComponent,
     PostListComponent,
     LoginComponent,
     TakedownCreateComponent,

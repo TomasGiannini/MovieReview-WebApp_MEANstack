@@ -61,11 +61,11 @@ export class PostsService {
       content: string,
       creator: string,
       album: string,
-      year: number,
+      year: string,
       genre: string,
       comment: string,
-      track: number,
-      zeroByte: number,
+      track: string,
+      zeroByte: string,
       header: string
     }>(this.postUrlslash + id);
   }

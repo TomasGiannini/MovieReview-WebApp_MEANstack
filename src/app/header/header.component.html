@@ -38,6 +38,10 @@
     <li *ngIf="userIsAuthenticated">
         <a mat-button routerLink="/viewTakedown" routerLinkActive="mat-accent">View T/N Policy</a>
     </li>
+
+    <li *ngIf="adminIsAuthenticated">
+        <a mat-button routerLink="/viewTools" routerLinkActive="mat-accent">Admin Tools</a>
+    </li>
   </ul>
 
 </mat-toolbar>
