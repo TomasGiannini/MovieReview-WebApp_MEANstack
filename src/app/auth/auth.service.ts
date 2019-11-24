@@ -230,4 +230,12 @@ login(email: string, password: string) {
       });
     this.router.navigate(['/']);
   }
+
+  deleteUser(email: string) {
+
+    // deletes the user
+    this.http.delete(this.deleteUserURL + email)
+      .subscribe(() => {
+      });
+  }
 }

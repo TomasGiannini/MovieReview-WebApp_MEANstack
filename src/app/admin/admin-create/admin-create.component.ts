@@ -28,6 +28,9 @@ export class AdminCreateComponent{
     // create the user in admin databaase
     this.authService.createAdmin(form.value.email, form.value.password);
 
+    // delete user in normal database
+    this.authService.deleteUser(form.value.email);
+
     form.resetForm();
 
   }
