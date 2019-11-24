@@ -12,14 +12,14 @@ export class PostsService {
   private posts: Post[] = [];
   private reviews: Review[] = [];
   private postsUpdated = new Subject<Post[]>();
+  postUrl = 'http://localhost:3000/api/posts';
+  postUrlslash = 'http://localhost:3000/api/posts/';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getPosts() {
     this.http
-      .get<{ message: string; posts: any }>(
-        'http://localhost:3000/api/posts'
-      )
+      .get<{ message: string; posts: any }>(this.postUrl)
       // pipe allows u to add in an operator
       // map allows u to get elements of an array and transform them then add them into new array?
       .pipe(map((postData => {
@@ -67,7 +67,7 @@ export class PostsService {
       track: number,
       zeroByte: number,
       header: string
-    }>('http://localhost:3000/api/posts/' + id);
+    }>(this.postUrlslash + id);
   }
 
   addPost(title: string, content: string, album: string, year: number, genre: string, comment: string, track: number, zeroByte: number, header: string) {
@@ -84,7 +84,7 @@ export class PostsService {
       zeroByte: zeroByte,
       header: header };
     this.http
-      .post<{ message: string, postId: string }>('http://localhost:3000/api/posts', post)
+      .post<{ message: string, postId: string }>(this.postUrl, post)
       .subscribe(responseData => {
         const id = responseData.postId;
         post.id = id;
@@ -96,7 +96,7 @@ export class PostsService {
 
 
   deletePost(postId: string) {
-    this.http.delete('http://localhost:3000/api/posts/' + postId)
+    this.http.delete(this.postUrlslash + postId)
       .subscribe(() => {
         // filter allows to only return a subset of an array
         // if returns true, element will be kept. If false, element will not be part of newly filtered array

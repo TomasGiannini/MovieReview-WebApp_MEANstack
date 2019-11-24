@@ -13,6 +13,8 @@ export class ReviewsService {
   private reviews: Review[] = [];
   private reviewsUpdated = new Subject<Review[]>();
 
+  reviewURL = 'http://localhost:3000/api/reviews';
+
   songs: Post[] = [];
   reviewSongs: Review[] = [];
 
@@ -26,7 +28,7 @@ export class ReviewsService {
       report: report
     };
     this.http
-    .post<{ message: string }>('http://localhost:3000/api/reviews', review)
+    .post<{ message: string }>(this.reviewURL, review)
       .subscribe(responseData => {
         this.router.navigate(['/']);
       });
@@ -34,9 +36,7 @@ export class ReviewsService {
 
   getReviews() {
     this.http
-      .get<{ message: string; reviews: any }>(
-        'http://localhost:3000/api/reviews'
-      )
+      .get<{ message: string; reviews: any }>(this.reviewURL)
       // pipe allows u to add in an operator
       // map allows u to get elements of an array and transform them then add them into new array?
       .pipe(map((reviewData => {
@@ -66,9 +66,7 @@ export class ReviewsService {
 
     // get the reviews
     this.http
-      .get<{ message: string; reviews: any }>(
-        'http://localhost:3000/api/reviews'
-      )
+      .get<{ message: string; reviews: any }>(this.reviewURL)
       .pipe(map((reviewData => {
         return reviewData.reviews.map(review => {
           return {
@@ -83,11 +81,9 @@ export class ReviewsService {
         this.reviewSongs = transformedReviews;
       });
 
-      // get the posts
-      this.http
-        .get<{ message: string; posts: any }>(
-            'http://localhost:3000/api/posts'
-          )
+    // get the posts
+    this.http
+        .get<{ message: string; posts: any }>(this.reviewURL)
         .pipe(map((postData => {
             return postData.posts.map(post => {
               return {

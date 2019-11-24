@@ -25,6 +25,13 @@ export class AuthService {
   // same thing but for admin
   private adminId: string;
 
+  userSignupURL = 'http://localhost:3000/api/user/signup';
+  adminSignupURL = 'http://localhost:3000/api/admin/signup';
+  userLoginURL = 'http://localhost:3000/api/user/login';
+  adminLoginUrl = 'http://localhost:3000/api/admin/login';
+  deleteUserURL = 'http://localhost:3000/api/user/delete/';
+  userSignupDEACURL = 'http://localhost:3000/api/user/signupDEAC';
+
   //for deactivating
 
 
@@ -65,7 +72,7 @@ export class AuthService {
 // creates normal users
 createUser(email: string, password: string ) {
     const authData: AuthData = { email: email, password: password};
-    this.http.post<{ userId: string }>('http://localhost:3000/api/user/signup', authData)
+    this.http.post<{ userId: string }>(this.userSignupURL, authData)
       .subscribe(response => {
         const id = response.userId;
         console.log(id);
@@ -76,7 +83,7 @@ createUser(email: string, password: string ) {
 // creates admins
 createAdmin(email: string, password: string) {
     const authData: AuthData = { email: email, password: password};
-    this.http.post('http://localhost:3000/api/admin/signup', authData)
+    this.http.post(this.adminSignupURL, authData)
       .subscribe(response => {
         console.log(response);
       });
@@ -86,7 +93,7 @@ createAdmin(email: string, password: string) {
 login(email: string, password: string) {
 
     const authData: AuthData = { email: email, password: password }
-    this.http.post<{token: string, expiresIn: number, userId: string, isDeactivated: boolean }>('http://localhost:3000/api/user/login', authData)
+    this.http.post<{token: string, expiresIn: number, userId: string, isDeactivated: boolean }>(this.userLoginURL, authData)
       .subscribe(response => {
         if (response.isDeactivated === true) {
           alert('User is deactivated. Contact site admin');
@@ -113,7 +120,7 @@ login(email: string, password: string) {
   loginAdmin(email: string, password: string) {
 
     const authData: AuthData = { email: email, password: password }
-    this.http.post<{token: string, expiresIn: number, adminId: string }>('http://localhost:3000/api/admin/login', authData)
+    this.http.post<{token: string, expiresIn: number, adminId: string }>(this.adminLoginUrl, authData)
       .subscribe(response => {
         const token = response.token;
         this.token = token;
@@ -209,7 +216,7 @@ login(email: string, password: string) {
   updateUser(email: string, password: string) {
 
     // deletes the user
-    this.http.delete('http://localhost:3000/api/user/delete/' + email)
+    this.http.delete(this.deleteUserURL + email)
       .subscribe(() => {
         //const updatedPosts = this.posts.filter(post => post.id !== postId);
         //this.posts = updatedPosts;
@@ -218,7 +225,7 @@ login(email: string, password: string) {
 
     // re-creates the deacticvated user
     const authData: AuthData = { email: email, password: password};
-    this.http.post<{ userId: string }>('http://localhost:3000/api/user/signupDEAC', authData)
+    this.http.post<{ userId: string }>(this.userSignupDEACURL, authData)
       .subscribe(response => {
       });
     this.router.navigate(['/']);
