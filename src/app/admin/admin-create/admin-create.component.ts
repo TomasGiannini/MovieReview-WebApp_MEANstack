@@ -29,4 +29,13 @@ export class AdminCreateComponent{
 
   }
 
+  onDeactivateUser(form: NgForm) {
+    if (form.invalid) {
+      return ;
+    }
+
+    // mark the user as deactivated
+    this.authService.updateUser(form.value.email, form.value.password);
+  }
+
 }

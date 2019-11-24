@@ -25,5 +25,35 @@
           <button
             mat-raised-button
             type="submit">Add Admin</button>
+
+    </form>
+
+    <form (submit)="onDeactivateUser(deacForm)" #deacForm="ngForm">
+        <mat-form-field>
+            <input
+              matInput
+              name="email"
+              type="email"
+              ngModel
+              required email
+              placeholder="Email Address of User"
+              #emailInput="ngModel">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input
+            type="password"
+            name="password"
+            matInput
+            ngModel
+            #passwordInput="ngModel"
+            required
+            placeholder="Password of user">
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            type="submit">Deactivate User</button>
+
     </form>
     </mat-card>

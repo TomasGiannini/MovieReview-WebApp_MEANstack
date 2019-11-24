@@ -19,7 +19,8 @@ router.post("/signup", (req, res, next) => {
       .then(result => {
         res.status(201).json({
           message: "User created!",
-          result: result
+          result: result,
+          userId: result._id
         });
       })
       .catch(err => {
@@ -65,6 +66,19 @@ router.post("/login", (req, res, next) => {
         message: "Auth failed"
       });
     });
+});
+
+router.put('/update', (req, res, next) => {
+  const user = new User({
+    email: req.body.email,
+    password: req.body.password,
+    isDeactivated: true
+  });
+  // post must meet these id and creator requirements in order for them to be updated
+  User.updateOne({ email: req.body.email }, user)
+  .then(result => {
+    console.log('updated user');
+  });
 });
 
 module.exports = router;

@@ -4,6 +4,7 @@ import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { getLocaleExtraDayPeriodRules } from '@angular/common';
+import { User } from '../../../backend/models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -23,6 +24,9 @@ export class AuthService {
   private userId: string;
   // same thing but for admin
   private adminId: string;
+
+  //for deactivating
+
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -61,9 +65,10 @@ export class AuthService {
 // creates normal users
 createUser(email: string, password: string ) {
     const authData: AuthData = { email: email, password: password};
-    this.http.post('http://localhost:3000/api/user/signup', authData)
+    this.http.post<{ userId: string }>('http://localhost:3000/api/user/signup', authData)
       .subscribe(response => {
-        console.log(response);
+        const id = response.userId;
+        console.log(id);
       });
     this.router.navigate(['/']);
   }
@@ -199,5 +204,22 @@ login(email: string, password: string) {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
+  }
+
+  updateUser(email: string, password: string) {
+    const user: User = {
+      email: email,
+      password: password
+    };
+    this.http
+    .put('http://localhost:3000/api/user/' + email, user)
+    .subscribe(response => {
+      const updatedPosts = [...this.posts];
+      const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+      updatedPosts[oldPostIndex] = post;
+      this.posts = updatedPosts;
+      this.postsUpdated.next([...this.posts]);
+      this.router.navigate(['/']);
+    });
   }
 }
