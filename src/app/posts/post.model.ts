@@ -10,4 +10,5 @@ export interface Post {
   track: number;
   zeroByte: number;
   header: string;
+  avgRating: number;
 }

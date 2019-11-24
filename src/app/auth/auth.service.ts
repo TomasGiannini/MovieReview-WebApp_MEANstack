@@ -81,8 +81,12 @@ createAdmin(email: string, password: string) {
 login(email: string, password: string) {
 
     const authData: AuthData = { email: email, password: password }
-    this.http.post<{token: string, expiresIn: number, userId: string }>('http://localhost:3000/api/user/login', authData)
+    this.http.post<{token: string, expiresIn: number, userId: string, isDeactivated: boolean }>('http://localhost:3000/api/user/login', authData)
       .subscribe(response => {
+        if (response.isDeactivated === true) {
+          alert('User is deactivated. Contact site admin');
+          return ;
+        }
         const token = response.token;
         this.token = token;
         if (token) {

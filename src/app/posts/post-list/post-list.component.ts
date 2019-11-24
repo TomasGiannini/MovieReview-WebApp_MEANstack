@@ -25,6 +25,13 @@ export class PostListComponent implements OnInit, OnDestroy {
   userId: string;
   searchTerm: string;
 
+  numSongs = 0;
+  numReviews = 0;
+  currentSong: string;
+  currentAvg = 0;
+  currentSum = 0;
+  currentReviewCount = 0;
+
   // angular calls and gives u the parameters for this constrcutor auto
   // public keyword auto creates new property called postsService of type class PostsService
   constructor(public postsService: PostsService, private authService: AuthService, public reviewsService: ReviewsService) {}
@@ -56,7 +63,29 @@ export class PostListComponent implements OnInit, OnDestroy {
           this.reviews = reviews;
         });
 
-      // for
+    this.numSongs = this.posts.length;
+    this.numReviews = this.reviews.length;
+
+    // loop songs
+    for(const song of this.posts) {
+
+      this.currentSong = song.title;
+
+      // loop reviews
+      for(let review of this.reviews) {
+
+        // if a review is for the song we are currently on
+        if (review.songSrc === song.title) {
+          this.currentSum = review.rating + this.currentSum;
+          this.currentReviewCount ++;
+        }
+
+      }
+      // average rating for song x
+      this.currentAvg = this.currentSum / this.currentReviewCount;
+      song.avgRating = this.currentAvg;
+
+    }
 
   }
 
