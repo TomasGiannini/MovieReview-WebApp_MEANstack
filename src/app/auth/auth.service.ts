@@ -207,19 +207,20 @@ login(email: string, password: string) {
   }
 
   updateUser(email: string, password: string) {
-    const user: User = {
-      email: email,
-      password: password
-    };
-    this.http
-    .put('http://localhost:3000/api/user/' + email, user)
-    .subscribe(response => {
-      const updatedPosts = [...this.posts];
-      const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
-      updatedPosts[oldPostIndex] = post;
-      this.posts = updatedPosts;
-      this.postsUpdated.next([...this.posts]);
-      this.router.navigate(['/']);
-    });
+
+    // deletes the user
+    this.http.delete('http://localhost:3000/api/user/delete/' + email)
+      .subscribe(() => {
+        //const updatedPosts = this.posts.filter(post => post.id !== postId);
+        //this.posts = updatedPosts;
+        //this.postsUpdated.next([...this.posts]);
+      });
+
+    // re-creates the deacticvated user
+    const authData: AuthData = { email: email, password: password};
+    this.http.post<{ userId: string }>('http://localhost:3000/api/user/signupDEAC', authData)
+      .subscribe(response => {
+      });
+    this.router.navigate(['/']);
   }
 }

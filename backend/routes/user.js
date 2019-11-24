@@ -31,6 +31,31 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
+router.post("/signupDEAC", (req, res, next) => {
+  bcrypt.hash(req.body.password, 10).then(hash => {
+    const user = new User({
+      email: req.body.email,
+      password: hash,
+      isAdmin: 'false',
+      isDeactivated: true
+    });
+    user
+      .save()
+      .then(result => {
+        res.status(201).json({
+          message: "User created!",
+          result: result,
+          userId: result._id
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
+  });
+});
+
 router.post("/login", (req, res, next) => {
   let fetchedUser;
   User.findOne({ email: req.body.email })
@@ -79,6 +104,16 @@ router.put('/update', (req, res, next) => {
   .then(result => {
     console.log('updated user');
   });
+});
+
+router.delete('/delete/:email', (req, res, next) => {
+  User.deleteOne({ email: req.params.email })
+  .then(result => {
+    res.status(200).json({ message: 'post deleted' })
+  })
+  .catch(err => {
+    res.status(401).send(err);
+  })
 });
 
 module.exports = router;

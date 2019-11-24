@@ -17,7 +17,8 @@ export class PostFilterPipe implements PipeTransform {
       (post.content.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
       (post.album.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
       (post.genre.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
-      (post.header.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) );
+      (post.header.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
+      (post.year.indexOf(searchTerm) !== -1) );
       // COMMENT DOESNT WORK
   }
 }

@@ -5,9 +5,9 @@ export interface Post {
   creator: string;
   album: string;
   genre: string;
-  year: number;
+  year: string;
   comment: string;
-  track: number;
-  zeroByte: number;
+  track: string;
+  zeroByte: string;
   header: string;
 }
