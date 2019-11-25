@@ -65,4 +65,16 @@ router.post("/login", (req, res, next) => {
     });
 });
 
+
+router.get('/:email', (req, res, next) => {
+  Admin.findOne({ email: req.params.email })
+    .then(admin => {
+      if(admin) {
+        res.status(200).json({message: 'there was an admin', email: admin.email});
+      } else {
+        res.status(404).json({ message: 'admin not found' })
+      }
+    });
+});
+
 module.exports = router;
