@@ -95,9 +95,6 @@ login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password }
     this.http.post<{token: string, expiresIn: number, userId: string, isDeactivated: boolean }>(this.userLoginURL, authData)
       .subscribe(response => {
-        if (response.message === 'Auth failedHAHA'){
-          console.log('Std');
-        }
         if (response.isDeactivated === true) {
           alert('User is deactivated. Contact site admin');
           return ;
@@ -125,9 +122,6 @@ login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password }
     this.http.post<{token: string, expiresIn: number, adminId: string }>(this.adminLoginUrl, authData)
       .subscribe(response => {
-        if (response.message === 'NIG'){
-          console.log('Std');
-        }
         const token = response.token;
         this.token = token;
         if (token) {
