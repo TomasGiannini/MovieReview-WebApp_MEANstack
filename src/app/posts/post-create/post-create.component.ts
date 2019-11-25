@@ -94,7 +94,7 @@ export class PostCreateComponent implements OnInit {
   }
 
   onAddReview(form: NgForm) {
-    if(form.invalid) {
+    if (form.invalid) {
       return ;
     }
     this.reviewsService.addReview(form.value.title, form.value.rating, form.value.report);

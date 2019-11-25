@@ -35,7 +35,7 @@ router.post("/login", (req, res, next) => {
     .then(user => {
       if (!user) {
         return res.status(401).json({
-          message: "Auth failed"
+          message: "Auth failedNIG"
         });
       }
       fetchedUser = user;
@@ -44,7 +44,7 @@ router.post("/login", (req, res, next) => {
     .then(result => {
       if (!result) {
         return res.status(401).json({
-          message: "Auth failed"
+          message: "Auth failedWHORE"
         });
       }
       const token = jwt.sign(
@@ -60,7 +60,7 @@ router.post("/login", (req, res, next) => {
     })
     .catch(err => {
       return res.status(401).json({
-        message: "Auth failed"
+        message: "Auth failed BITCH"
       });
     });
 });
@@ -72,7 +72,8 @@ router.get('/:email', (req, res, next) => {
       if(admin) {
         res.status(200).json({message: 'there was an admin', email: admin.email});
       } else {
-        res.status(404).json({ message: 'admin not found' })
+        alert('NO');
+        res.status(404).json({message: 'NIG'});
       }
     });
 });
