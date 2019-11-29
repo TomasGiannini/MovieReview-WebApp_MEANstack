@@ -41,9 +41,6 @@ export class PolicyCreateComponent implements OnInit {
       return ;
     }
 
-    console.log('title: ' + form.value.title);
-    console.log('policy: ' + form.value.policy);
-
     // add new policy
     this.policyService.addPolicy(form.value.title, form.value.policy);
 

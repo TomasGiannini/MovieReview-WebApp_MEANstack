@@ -16,7 +16,7 @@ export class TakedownCreateComponent implements OnInit {
 
   takedownsies: Takedown[] = [];
   private takedownSub: Subscription;
-  private isTakedown = 0;
+  public isTakedown = 0;
 
 
   constructor(public route: ActivatedRoute, private authService: AuthService, private policyService: PolicyService) {}
@@ -37,7 +37,24 @@ export class TakedownCreateComponent implements OnInit {
     if (form.invalid) {
       return ;
     }
-    this.policyService.addTakedown(form.value.takedown);
+    // add new takedown
+    this.policyService.addTakedown(form.value.takedownTitle, form.value.takedown);
+    form.resetForm();
+  }
+
+  onUpdateTakedown(form: NgForm) {
+
+    if (form.invalid) {
+      return ;
+    }
+
+    console.log('old takedown name: ' + form.value.oldTakedownTitle);
+
+    // delete existing takedown
+    this.policyService.deleteTakedown(form.value.oldTakedownTitle);
+
+    // add new takedown
+    this.policyService.addTakedown(form.value.newTakedownTitle, form.value.newtakedown);
     form.resetForm();
   }
 

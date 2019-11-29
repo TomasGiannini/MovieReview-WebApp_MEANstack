@@ -39,14 +39,15 @@ getPolicies() {
 }
 
 getTakedowns() {
-  this.http.get<{message: string, takedown: any}>(
+  this.http.get<{message: string, takedown: any, title: string}>(
     'http://localhost:3000/api/takedown'
     )
     .pipe(map((takedownData) => {
       return takedownData.takedown.map(takedown => {
         return {
           id: takedown._id,
-          takedown: takedown.takedown
+          takedown: takedown.takedown,
+          title: takedown.title
         };
       });
     }))
@@ -80,15 +81,15 @@ addPolicy(title: string, policy: string) {
   this.isPolicy = 1;
 }
 
-addTakedown(takedown: string) {
+addTakedown(title: string, takedown: string) {
 
   const atakedown: Takedown = {
+    title: title,
     takedown: takedown
   };
   this.http
   .post<{ message: string, takedown: string }>('http://localhost:3000/api/takedown', atakedown)
     .subscribe(responseData => {
-      console.log('NO');
       this.router.navigate(['/']);
     });
 
@@ -107,6 +108,14 @@ deletePolicy(title: string) {
 
   // deletes the policy
   this.http.delete('http://localhost:3000/api/policy/delete/' + title)
+    .subscribe(() => {
+    });
+}
+
+deleteTakedown(title: string) {
+
+  // deletes the policy
+  this.http.delete('http://localhost:3000/api/takedown/delete/' + title)
     .subscribe(() => {
     });
 }

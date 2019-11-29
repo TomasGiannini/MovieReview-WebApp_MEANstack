@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const takedownSchema = mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
   takedown: {
     type: String,
     required: true

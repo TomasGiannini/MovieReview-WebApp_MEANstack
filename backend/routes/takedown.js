@@ -4,7 +4,7 @@ const Takedown = require("../models/takedown");
 const router = express.Router();
 
 router.post("", (req, res, next) => {
-    const takedown = new Takedown({ takedown: req.body.takedown });
+    const takedown = new Takedown({ title: req.body.title, takedown: req.body.takedown });
     takedown.save()
       .then(result => {
         res.status(201).json({
@@ -27,6 +27,16 @@ router.get("", (req, res, next) => {
         takedown: takedowns
       });
     });
+});
+
+router.delete('/delete/:title', (req, res, next) => {
+  Takedown.deleteOne({ title: req.params.title })
+  .then(result => {
+    res.status(200).json({ message: 'takedown deleted' })
+  })
+  .catch(err => {
+    res.status(401).send(err);
+  })
 });
 
 module.exports = router;
