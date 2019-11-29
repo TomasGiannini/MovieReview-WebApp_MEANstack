@@ -115,6 +115,11 @@ login(email: string, password: string) {
           this.router.navigate(['/']);
         }
       });
+    setTimeout(() => {
+    if (!this.getIsAuth()) {
+      alert('Username/Password is incorrect');
+    }
+    }, 3000);
   }
 
   loginAdmin(email: string, password: string) {
@@ -138,6 +143,11 @@ login(email: string, password: string) {
           this.router.navigate(['/']);
         }
       });
+  setTimeout(() => {
+    if (!this.getAdminIsAuth()) {
+      alert('Username/Password is incorrect');
+      }
+    }, 3000);
   }
 
 
