@@ -19,7 +19,7 @@ export class PolicyCreateComponent implements OnInit {
 
   policies: Policy[] = [];
   private policySub: Subscription;
-  private isPolicy = 0;
+  public isPolicy = 0;
 
 
   constructor(public route: ActivatedRoute, private authService: AuthService, private policyService: PolicyService) {}
@@ -40,7 +40,29 @@ export class PolicyCreateComponent implements OnInit {
     if (form.invalid) {
       return ;
     }
-    this.policyService.addPolicy(form.value.policy);
+
+    console.log('title: ' + form.value.title);
+    console.log('policy: ' + form.value.policy);
+
+    // add new policy
+    this.policyService.addPolicy(form.value.title, form.value.policy);
+
+    form.resetForm();
+  }
+
+  onUpdatePolicy(form: NgForm) {
+
+    if (form.invalid) {
+      return ;
+    }
+
+    // delete old policy
+    this.policyService.deletePolicy(form.value.oldTitle);
+
+    // add new one
+    this.policyService.addPolicy(form.value.newTitle, form.value.newPolicy);
+
+
     form.resetForm();
   }
 

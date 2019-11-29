@@ -20,14 +20,15 @@ private isTakedown = 0;
 constructor(private http: HttpClient, private router: Router) {}
 
 getPolicies() {
-  this.http.get<{message: string, policy: any}>(
+  this.http.get<{message: string, policy: any, title: string}>(
     'http://localhost:3000/api/policy'
     )
     .pipe(map((policyData) => {
       return policyData.policy.map(policy => {
         return {
           id: policy._id,
-          policy: policy.policy
+          policy: policy.policy,
+          title: policy.title
         };
       });
     }))
@@ -63,9 +64,11 @@ getTakedownUpdateListener() {
   return this.takedownUpdated.asObservable();
 }
 
-addPolicy(policy: string) {
+addPolicy(title: string, policy: string) {
 
+  // add the updated policy
   const apolicy: Policy = {
+    title: title,
     policy: policy
   };
   this.http
@@ -98,6 +101,14 @@ getIsPolicy() {
 
 getIsTakedown() {
   return this.isTakedown;
+}
+
+deletePolicy(title: string) {
+
+  // deletes the policy
+  this.http.delete('http://localhost:3000/api/policy/delete/' + title)
+    .subscribe(() => {
+    });
 }
 
 }

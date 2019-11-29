@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const policySchema = mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
   policy: {
     type: String,
     required: true

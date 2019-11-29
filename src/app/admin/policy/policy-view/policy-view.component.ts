@@ -16,7 +16,7 @@ export class PolicyViewComponent implements OnInit {
 
   policies: Policy[] = [];
   private policySub: Subscription;
-  private isPolicy = 0;
+  public isPolicy = 0;
 
   constructor(public route: ActivatedRoute, private authService: AuthService, private policyService: PolicyService) {}
 

@@ -1,6 +1,17 @@
 <mat-card>
-    <form (submit)="onCreatePolicy(policyForm)" #policyForm="ngForm">
-        <mat-form-field>
+    <form (submit)="onCreatePolicy(oldPolicyForm)" #oldPolicyForm="ngForm">
+      <mat-form-field *ngIf="isPolicy === 0">
+        <input
+          matInput
+          name="title"
+          type="text"
+          ngModel
+          required
+          placeholder="Policy Title"
+          #title="ngModel">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isPolicy === 0">
             <input
               matInput
               name="policy"
@@ -11,14 +22,57 @@
               #policy="ngModel">
           </mat-form-field>
           <br>
-          <button *ngIf="!isPolicy"
+
+          <button *ngIf="isPolicy === 0"
             mat-raised-button
             type="submit">Add Policy</button>
     </form>
 
+    <form (submit)="onUpdatePolicy(policyForm)" #policyForm="ngForm">
+      <mat-form-field *ngIf="isPolicy === 1">
+        <input
+          matInput
+          name="oldTitle"
+          type="text"
+          ngModel
+          required
+          placeholder="Old Policy Title"
+          #oldTitle="ngModel">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isPolicy === 1">
+        <input
+          matInput
+          name="newTitle"
+          type="text"
+          ngModel
+          required
+          placeholder="Policy Title"
+          #newTitle="ngModel">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isPolicy === 1">
+            <input
+              matInput
+              name="newPolicy"
+              type="text"
+              ngModel
+              required
+              placeholder="New Security Policy"
+              #newPolicy="ngModel">
+          </mat-form-field>
+          <br>
+
+          <button *ngIf="isPolicy === 1"
+            mat-raised-button
+            type="submit">Update Policy</button>
+    </form>
+
     <h3 *ngFor="let policy of policies">
         <p>
-          {{ policy.policy }}
+          Title: {{ policy.title }}
+          <br>
+          Policy: {{ policy.policy }}
         </p>
       </h3>
 </mat-card>
