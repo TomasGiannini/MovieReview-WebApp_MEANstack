@@ -228,9 +228,6 @@ login(email: string, password: string) {
     // deletes the user
     this.http.delete(this.deleteUserURL + email)
       .subscribe(() => {
-        //const updatedPosts = this.posts.filter(post => post.id !== postId);
-        //this.posts = updatedPosts;
-        //this.postsUpdated.next([...this.posts]);
       });
 
     // re-creates the deacticvated user

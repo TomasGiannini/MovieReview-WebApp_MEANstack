@@ -13,6 +13,7 @@ import {
   MatProgressSpinnerModule
 } from '@angular/material';
 
+// all components I created
 import { AppComponent } from './app.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HeaderComponent } from './header/header.component';

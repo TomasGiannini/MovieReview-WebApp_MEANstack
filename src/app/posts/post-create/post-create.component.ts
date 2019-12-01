@@ -87,7 +87,7 @@ export class PostCreateComponent implements OnInit {
     }
 
     } else {
-      //this.postsService.updatePost(this.postId, form.value.title, form.value.content);
+      // nothing
     }
 
     form.resetForm();

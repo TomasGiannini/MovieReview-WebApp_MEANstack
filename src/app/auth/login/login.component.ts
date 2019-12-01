@@ -21,14 +21,6 @@ export class LoginComponent {
     }
     const email = form.value.email;
 
-    /*
-    // login a USER or ADMIN
-    if (email.indexOf(this.adminString) !== -1) {
-      this.authService.loginAdmin(form.value.email, form.value.password);
-    } else {
-      this.authService.login(form.value.email, form.value.password);
-    }*/
-
     //get admin db
     this.http.get<{ email: string }>('http://localhost:3000/api/admin/' + email)
     .subscribe(response => {

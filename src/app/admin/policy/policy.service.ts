@@ -17,12 +17,17 @@ private takedown: Takedown[] = [];
 private takedownUpdated = new Subject<Takedown[]>();
 private isTakedown = 0;
 
+getPolicyURL = 'http://localhost:3000/api/policy';
+getTakedownURL = 'http://localhost:3000/api/takedown';
+addPolicyURL = 'http://localhost:3000/api/policy';
+addTakedownURL = 'http://localhost:3000/api/takedown';
+deletePolicyURL = 'http://localhost:3000/api/policy/delete/';
+deleteTakedownURL = 'http://localhost:3000/api/takedown/delete/';
+
 constructor(private http: HttpClient, private router: Router) {}
 
 getPolicies() {
-  this.http.get<{message: string, policy: any, title: string}>(
-    'http://localhost:3000/api/policy'
-    )
+  this.http.get<{message: string, policy: any, title: string}>(this.getPolicyURL)
     .pipe(map((policyData) => {
       return policyData.policy.map(policy => {
         return {
@@ -39,9 +44,7 @@ getPolicies() {
 }
 
 getTakedowns() {
-  this.http.get<{message: string, takedown: any, title: string}>(
-    'http://localhost:3000/api/takedown'
-    )
+  this.http.get<{message: string, takedown: any, title: string}>(this.getTakedownURL)
     .pipe(map((takedownData) => {
       return takedownData.takedown.map(takedown => {
         return {
@@ -73,7 +76,7 @@ addPolicy(title: string, policy: string) {
     policy: policy
   };
   this.http
-  .post<{ message: string }>('http://localhost:3000/api/policy', apolicy)
+  .post<{ message: string }>(this.addPolicyURL, apolicy)
     .subscribe(responseData => {
       this.router.navigate(['/']);
     });
@@ -88,7 +91,7 @@ addTakedown(title: string, takedown: string) {
     takedown: takedown
   };
   this.http
-  .post<{ message: string, takedown: string }>('http://localhost:3000/api/takedown', atakedown)
+  .post<{ message: string, takedown: string }>(this.addTakedownURL, atakedown)
     .subscribe(responseData => {
       this.router.navigate(['/']);
     });
@@ -107,7 +110,7 @@ getIsTakedown() {
 deletePolicy(title: string) {
 
   // deletes the policy
-  this.http.delete('http://localhost:3000/api/policy/delete/' + title)
+  this.http.delete(this.deletePolicyURL + title)
     .subscribe(() => {
     });
 }
@@ -115,7 +118,7 @@ deletePolicy(title: string) {
 deleteTakedown(title: string) {
 
   // deletes the policy
-  this.http.delete('http://localhost:3000/api/takedown/delete/' + title)
+  this.http.delete(this.deleteTakedownURL + title)
     .subscribe(() => {
     });
 }
