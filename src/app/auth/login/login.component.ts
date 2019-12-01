@@ -15,6 +15,8 @@ export class LoginComponent {
 
   constructor(public authService: AuthService, private http: HttpClient) {}
 
+  adminURL = 'http://localhost:3000/api/admin/';
+
   onLogin(form: NgForm) {
     if (form.invalid) {
       return ;
@@ -22,7 +24,7 @@ export class LoginComponent {
     const email = form.value.email;
 
     //get admin db
-    this.http.get<{ email: string }>('http://localhost:3000/api/admin/' + email)
+    this.http.get<{ email: string }>(this.adminURL + email)
     .subscribe(response => {
       this.adminEmail = response.email;
       console.log(this.adminEmail);
