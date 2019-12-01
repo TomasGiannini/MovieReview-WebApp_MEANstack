@@ -1,0 +1,34 @@
+<mat-card>
+    <form (submit)="onSaveReview(reviewForm)" #reviewForm="ngForm">
+
+            <mat-form-field>
+                <input
+                matInput
+                type="number"
+                name="rating"
+                [ngModel]="review?.rating"
+                required
+                placeholder="Rating"
+                #rating="ngModel">
+                <mat-error *ngIf="">Please enter a rating</mat-error>
+            </mat-form-field>
+          <br>
+              <mat-form-field>
+                  <input
+                  matInput
+                  type="text"
+                  name="report"
+                  [ngModel]="review?.report"
+                  required
+                  placeholder="Review"
+                  #report="ngModel">
+                  <mat-error *ngIf="">Please enter a review</mat-error>
+              </mat-form-field>
+          <br>
+
+          <button
+            mat-raised-button
+            type="submit">Add Review
+          </button>
+    </form>
+</mat-card>

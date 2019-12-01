@@ -1,0 +1,76 @@
+<mat-card>
+    <form (submit)="onCreateTakedown(takedownForm)" #takedownForm="ngForm">
+      <mat-form-field *ngIf="isTakedown === 0">
+        <input
+          matInput
+          name="takedownTitle"
+          type="text"
+          ngModel
+          required
+          placeholder="Title"
+          #takedownTitle="ngModel">
+      </mat-form-field>
+      <br>
+      <mat-form-field *ngIf="isTakedown === 0">
+            <input
+              matInput
+              name="takedown"
+              type="text"
+              ngModel
+              required
+              placeholder="Takedown/Notice Policy"
+              #takedown="ngModel">
+          </mat-form-field>
+          <br>
+          <button *ngIf="isTakedown === 0"
+            mat-raised-button
+            type="submit">Add Notice</button>
+    </form>
+
+    <form (submit)="onUpdateTakedown(newtakedownForm)" #newtakedownForm="ngForm">
+      <mat-form-field *ngIf="isTakedown === 1">
+        <input
+          matInput
+          name="oldTakedownTitle"
+          type="text"
+          ngModel
+          required
+          placeholder="Old Title"
+          #oldTakedownTitle="ngModel">
+      </mat-form-field>
+      <br>
+      <mat-form-field *ngIf="isTakedown === 1">
+        <input
+          matInput
+          name="newTakedownTitle"
+          type="text"
+          ngModel
+          required
+          placeholder="Title"
+          #newTakedownTitle="ngModel">
+      </mat-form-field>
+      <br>
+      <mat-form-field *ngIf="isTakedown === 1">
+            <input
+              matInput
+              name="newtakedown"
+              type="text"
+              ngModel
+              required
+              placeholder="Takedown/Notice Policy"
+              #newtakedown="ngModel">
+          </mat-form-field>
+          <br>
+          <button *ngIf="isTakedown === 1"
+            mat-raised-button
+            type="submit">Update Notice</button>
+    </form>
+
+    <h3 *ngFor="let takedown of takedownsies">
+        <p>
+          Title: {{ takedown.title }}
+          <br>
+          Takedown Notice: {{ takedown.takedown }}
+        </p>
+      </h3>
+</mat-card>

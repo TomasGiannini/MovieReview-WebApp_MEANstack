@@ -10,14 +10,42 @@ router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
       email: req.body.email,
-      password: hash
+      password: hash,
+      isAdmin: 'false',
+      isDeactivated: false
     });
     user
       .save()
       .then(result => {
         res.status(201).json({
           message: "User created!",
-          result: result
+          result: result,
+          userId: result._id
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
+  });
+});
+
+router.post("/signupDEAC", (req, res, next) => {
+  bcrypt.hash(req.body.password, 10).then(hash => {
+    const user = new User({
+      email: req.body.email,
+      password: hash,
+      isAdmin: 'false',
+      isDeactivated: true
+    });
+    user
+      .save()
+      .then(result => {
+        res.status(201).json({
+          message: "User created!",
+          result: result,
+          userId: result._id
         });
       })
       .catch(err => {
@@ -33,8 +61,9 @@ router.post("/login", (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
+
         return res.status(401).json({
-          message: "Auth failed"
+          message: "Auth failedHA"
         });
       }
       fetchedUser = user;
@@ -43,7 +72,7 @@ router.post("/login", (req, res, next) => {
     .then(result => {
       if (!result) {
         return res.status(401).json({
-          message: "Auth failed"
+          message: "Auth failedHAHA"
         });
       }
       const token = jwt.sign(
@@ -54,14 +83,39 @@ router.post("/login", (req, res, next) => {
       res.status(200).json({
         token: token,
         expiresIn: 3600,
-        userId: fetchedUser._id
+        userId: fetchedUser._id,
+        isDeactivated: fetchedUser.isDeactivated
       });
     })
     .catch(err => {
+
       return res.status(401).json({
-        message: "Auth failed"
+        message: "Auth failedAHAHAHAHAHHAHA"
       });
     });
+});
+
+router.put('/update', (req, res, next) => {
+  const user = new User({
+    email: req.body.email,
+    password: req.body.password,
+    isDeactivated: true
+  });
+  // post must meet these id and creator requirements in order for them to be updated
+  User.updateOne({ email: req.body.email }, user)
+  .then(result => {
+    console.log('updated user');
+  });
+});
+
+router.delete('/delete/:email', (req, res, next) => {
+  User.deleteOne({ email: req.params.email })
+  .then(result => {
+    res.status(200).json({ message: 'post deleted' })
+  })
+  .catch(err => {
+    res.status(401).send(err);
+  })
 });
 
 module.exports = router;

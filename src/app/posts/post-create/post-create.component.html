@@ -10,23 +10,117 @@
             required
             placeholder="Title"
             #title="ngModel">
-            <mat-error *ngIf="title.invalid">Enter post title</mat-error>
+            <mat-error *ngIf="title.invalid">Enter Title</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <textarea
             matInput
-            rows="4"
             name="content"
             [ngModel]="post?.content"
             required
-            placeholder="Content"
+            placeholder="Artist"
             #content="ngModel"></textarea>
-            <mat-error *ngIf="content.invalid">Enter content</mat-error>
+            <mat-error *ngIf="content.invalid">Enter Artist</mat-error>
         </mat-form-field>
+
+        <mat-form-field>
+            <textarea
+              matInput
+              name="album"
+              [ngModel]="post?.album"
+              placeholder="Album"
+              #album="ngModel"></textarea>
+              <mat-error *ngIf="">Enter Album</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+              <textarea
+                matInput
+                name="year"
+                [ngModel]="post?.year"
+                placeholder="Year"
+                #year="ngModel"></textarea>
+                <mat-error *ngIf="">Enter Year</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea
+                  matInput
+                  name="genre"
+                  [ngModel]="post?.genre"
+                  placeholder="Genre"
+                  #genre="ngModel"></textarea>
+                  <mat-error *ngIf="">Enter Genre</mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                  <textarea
+                    matInput
+                    name="comment"
+                    [ngModel]="post?.comment"
+                    placeholder="Comment"
+                    #comment="ngModel"></textarea>
+                    <mat-error *ngIf="">Enter Comment</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <textarea
+                      matInput
+                      name="track"
+                      [ngModel]="post?.track"
+                      placeholder="Track #"
+                      #track="ngModel"></textarea>
+                      <mat-error *ngIf="">Enter Track #</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <textarea
+                        matInput
+                        name="zeroByte"
+                        [ngModel]="post?.zeroByte"
+                        placeholder="ZeroByte"
+                        #zeroByte="ngModel"></textarea>
+                        <mat-error *ngIf="">Enter zero byte field</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <textarea
+                          matInput
+                          name="header"
+                          [ngModel]="post?.header"
+                          placeholder="Header Tags"
+                          #header="ngModel"></textarea>
+                          <mat-error *ngIf="">Enter Header Tags</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field>
+                        <input
+                        matInput
+                        type="number"
+                        name="rating"
+                        [ngModel]="rating"
+
+                        placeholder="Rating"
+                        #rating="ngModel">
+                        <mat-error *ngIf="">Please enter a rating</mat-error>
+                    </mat-form-field>
+
+                      <mat-form-field>
+                          <input
+                          matInput
+                          type="text"
+                          name="report"
+                          [ngModel]="report"
+
+                          placeholder="Review"
+                          #report="ngModel">
+                          <mat-error *ngIf="">Please enter a review</mat-error>
+                      </mat-form-field>
 
         <button
           mat-raised-button
           type="submit">Save Post</button>
+
   </form>
   </mat-card>

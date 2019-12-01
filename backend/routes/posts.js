@@ -8,7 +8,14 @@ router.post("", checkAuth, (req, res, next) => {
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
-    creator: req.userData.userId
+    creator: req.userData.userId,
+    album: req.body.album,
+    year: req.body.year,
+    genre: req.body.genre,
+    comment: req.body.comment,
+    track: req.body.track,
+    zeroByte: req.body.zeroByte,
+    header: req.body.header
   });
   //adding to database
   post.save()
@@ -59,8 +66,8 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.delete('/:id', checkAuth, (req, res, next) => {
-  Post.deleteOne({_id: req.params.id, creator: req.userData.userId})
+router.delete('/:id', (req, res, next) => {
+  Post.deleteOne({_id: req.params.id })
   .then(result => {
     if (result.n > 0) {
       res.status(200).json({ message: 'post deleted' });

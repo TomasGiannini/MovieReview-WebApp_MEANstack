@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Post } from './post.model';
+import { Review } from '../reviews/review.model'
 import { map } from 'rxjs/operators';
 import { PortalHostDirective } from '@angular/cdk/portal';
 import { Router } from '@angular/router';
@@ -9,15 +10,16 @@ import { Router } from '@angular/router';
 @Injectable({providedIn: 'root'})
 export class PostsService {
   private posts: Post[] = [];
+  private reviews: Review[] = [];
   private postsUpdated = new Subject<Post[]>();
+  postUrl = 'http://localhost:3000/api/posts';
+  postUrlslash = 'http://localhost:3000/api/posts/';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getPosts() {
     this.http
-      .get<{ message: string; posts: any }>(
-        'http://localhost:3000/api/posts'
-      )
+      .get<{ message: string; posts: any }>(this.postUrl)
       // pipe allows u to add in an operator
       // map allows u to get elements of an array and transform them then add them into new array?
       .pipe(map((postData => {
@@ -29,7 +31,14 @@ export class PostsService {
             title: post.title,
             content: post.content,
             id: post._id,
-            creator: post.creator
+            creator: post.creator,
+            album: post.album,
+            year: post.year,
+            genre: post.genre,
+            comment: post.comment,
+            track: post.track,
+            zeroByte: post.zeroByte,
+            header: post.header
           };
         });
       })))
@@ -38,6 +47,7 @@ export class PostsService {
         this.postsUpdated.next([...this.posts]);
       });
   }
+
 
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
@@ -49,14 +59,32 @@ export class PostsService {
       _id: string,
       title: string,
       content: string,
-      creator: string
-    }>('http://localhost:3000/api/posts/' + id);
+      creator: string,
+      album: string,
+      year: string,
+      genre: string,
+      comment: string,
+      track: string,
+      zeroByte: string,
+      header: string
+    }>(this.postUrlslash + id);
   }
 
-  addPost(title: string, content: string) {
-    const post: Post = { id: null, title: title, content: content, creator:null};
+  addPost(title: string, content: string, album: string, year: string, genre: string, comment: string, track: string, zeroByte: string, header: string) {
+    const post: Post = {
+      id: null,
+      title: title,
+      content: content,
+      creator: null,
+      album: album,
+      year: year,
+      genre: genre,
+      comment: comment,
+      track: track,
+      zeroByte: zeroByte,
+      header: header };
     this.http
-      .post<{ message: string, postId: string }>('http://localhost:3000/api/posts', post)
+      .post<{ message: string, postId: string }>(this.postUrl, post)
       .subscribe(responseData => {
         const id = responseData.postId;
         post.id = id;
@@ -68,7 +96,7 @@ export class PostsService {
 
 
   deletePost(postId: string) {
-    this.http.delete('http://localhost:3000/api/posts/' + postId)
+    this.http.delete(this.postUrlslash + postId)
       .subscribe(() => {
         // filter allows to only return a subset of an array
         // if returns true, element will be kept. If false, element will not be part of newly filtered array
@@ -78,25 +106,4 @@ export class PostsService {
         this.postsUpdated.next([...this.posts]);
       });
   }
-
-
-  updatePost(id: string, title: string, content: string) {
-    const post: Post = {
-      id: id,
-      title: title,
-      content: content,
-      creator: null
-    };
-    this.http
-    .put('http://localhost:3000/api/posts/' + id, post)
-    .subscribe(response => {
-      const updatedPosts = [...this.posts];
-      const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
-      updatedPosts[oldPostIndex] = post;
-      this.posts = updatedPosts;
-      this.postsUpdated.next([...this.posts]);
-      this.router.navigate(['/']);
-    });
-  }
-
 }

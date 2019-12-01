@@ -12,9 +12,13 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   // allows this class to subscribe to shit
-  private authListenerSubs: Subscription
-
+  private authListenerSubs: Subscription;
+  // admin version
+  private adminauthListenerSubs: Subscription;
   userIsAuthenticated = false;
+  // admin version
+  adminIsAuthenticated = false;
+
 
   // declaring use of authService class
   constructor(private authService: AuthService) {}
@@ -26,6 +30,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+
+    // ADMIN VERSION
+    this.adminIsAuthenticated = this.authService.getAdminIsAuth();
+    // ADMIN VERSION
+    this.adminauthListenerSubs = this.authService.getAdminAuthStatusListener()
+        .subscribe(isadminAuthenticated => {
+          this.adminIsAuthenticated = isadminAuthenticated;
+        });
   }
 
   // clear the token and inform all interested parties about the change
@@ -35,6 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
+    this.adminauthListenerSubs.unsubscribe();
   }
 
 }

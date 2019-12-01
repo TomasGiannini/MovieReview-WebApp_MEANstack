@@ -1,12 +1,51 @@
+<p>
+  Tune Review is a website dedicated to all music lovers! Here you will find reviews on any song you can think of
+</p>
+
+<input matInput type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm"/>
+<hr>
+
 <mat-accordion multi="true" *ngIf="posts.length > 0">
-  <mat-expansion-panel *ngFor="let post of posts">
+  <mat-expansion-panel *ngFor="let post of posts | postFilter:searchTerm">
     <mat-expansion-panel-header>
       {{ post.title }}
     </mat-expansion-panel-header>
-    <p>{{ post.content }}</p>
-    <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
-      <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
-      <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+    <p>ARTIST: {{ post.content }}
+      <br>
+      ALBUM: {{ post.album }}
+      <br>
+      YEAR: {{ post.year }}
+      <br>
+      GENRE: {{ post.genre }}
+      <br>
+      COMMENTS: {{ post.comment }}
+      <br>
+      TRACK NUMBER: {{ post.track }}
+      <br>
+      zeroByte: {{ post.zeroByte }}
+      <br>
+      Header Tags: {{ post.header }}
+    </p>
+    <p>
+      Most recent review:
+    </p>
+    <hr>
+    <b>Reviews:</b>
+    <h3 class="review-list" *ngFor="let review of reviews">
+      <p *ngIf="review.songSrc === post.title">
+        <br>
+        <br>
+        Rating: {{ review.rating }}
+        <br>
+        <br>
+        Review: {{ review.report }}
+      </p>
+    </h3>
+    <!--&& userId === post.creator UNDERNEATH HERE-->
+    <mat-action-row>
+      <a mat-button color="primary" *ngIf="userIsAuthenticated" [routerLink]="['/addReview', post.title]">Add Review</a>
+      <!--<a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>-->
+      <button mat-button color="warn" *ngIf="adminIsAuthenticated" (click)="onDelete(post.id)">Hide</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
