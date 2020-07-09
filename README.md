@@ -1,3 +1,8 @@
+## DESCRIPTION
+
+This project is a movie review web-app. A user can view movie reviews and make an account. If a user has an account, they can post reviews, edit, rate, etc.
+
+
 # MeanCourse
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
